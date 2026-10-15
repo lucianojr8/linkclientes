@@ -17,7 +17,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 /* login */
 #gate{position:fixed;inset:0;z-index:50;background:var(--dk);display:flex;align-items:center;justify-content:center;padding:24px}
-#gate form{width:100%;max-width:340px;text-align:center}
+#gate .gbox{width:100%;max-width:340px;text-align:center}
 #gate img{width:150px;margin:0 auto 18px}
 #gate p{color:#bbb;font-size:15px;margin-bottom:22px}
 #gate input{width:100%;padding:14px 16px;border-radius:10px;border:1px solid #3a3a3a;background:#1f1f1f;color:#fff;font:inherit;font-size:16px;margin-bottom:10px}
@@ -102,14 +102,11 @@ footer b{color:#ccc}
 <body>
 
 <div id="gate">
-  <form id="lf" autocomplete="off">
+  <div class="gbox">
     <img src="img/tver-logo.png" alt="TVER">
-    <p>Rede de mídia TVER · acesso restrito</p>
-    <input id="u" placeholder="Usuário" autocapitalize="none">
-    <input id="pw" type="password" placeholder="Senha">
-    <button type="submit">Entrar</button>
-    <div class="err" id="er"></div>
-  </form>
+    <p>Rede de mídia TVER · Belém</p>
+    <button type="button" id="go">Ver a rede</button>
+  </div>
 </div>
 
 <div id="app">
@@ -156,19 +153,8 @@ footer b{color:#ccc}
 
 <script>
 (function(){
-const U="tver", H="6d31d7834548e0c25cd621b010a029013dd04dccad930df54ad56016a7ca52cf";
 const gate=document.getElementById('gate'),app=document.getElementById('app');
-function open(){gate.remove();app.style.display='block';init();}
-let ok=false;try{ok=sessionStorage.getItem('tver_ok')==='1'}catch(e){}
-if(ok){open();return}
-document.getElementById('lf').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const u=document.getElementById('u').value.trim().toLowerCase(),p=document.getElementById('pw').value;
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));
-  const h=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
-  if(u===U&&h===H){try{sessionStorage.setItem('tver_ok','1')}catch(e){}open()}
-  else document.getElementById('er').textContent='Usuário ou senha incorretos.';
-});
+document.getElementById('go').onclick=()=>{gate.remove();app.style.display='block';init();window.scrollTo(0,0)};
 })();
 
 function init(){
