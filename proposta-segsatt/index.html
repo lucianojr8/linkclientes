@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proposta SegSatt · Atende Certo IA</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* Layout: telas navegáveis por botão. Marca Atende Certo (navy/azul). O manual da SegSatt aparece dentro de um celular, na paleta terracota da própria SegSatt. */
+:root{
+  --navy:#0A2F59;--azul:#14B4F2;--azul2:#0B97D5;--cinza:#5A6B80;--claro:#F4F8FB;--escuro:#041B33;--branco:#fff;
+  --texto:#24415f;--linha:#cfdbe8;--aviso-bg:#fff8e6;--aviso-bd:#e0b53c;
+  --m-ink:#1a1411;--m-ink2:#241c18;--m-paper:#f6efe8;--m-orange:#D9552B;--m-steel:#a99d95;--m-line:#3a2f29
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Garet","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;background:var(--claro);color:var(--navy);line-height:1.55;-webkit-text-size-adjust:100%}
+h1,h2,h3,.tit{font-family:"Telegraf","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;font-weight:300;letter-spacing:.01em;text-wrap:balance}
+button{font-family:inherit;cursor:pointer;border:0}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+.hidden{display:none!important}
+.top{background:linear-gradient(135deg,var(--escuro),var(--navy));color:#fff;padding-block:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;justify-content:space-between;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--escuro)}
+.top .brand{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.top .brand span{color:var(--azul)}
+.back{background:rgba(255,255,255,.12);color:#fff;padding:8px 14px;border-radius:20px;font-size:13px}
+.wrap{max-width:760px;margin:0 auto;padding-top:0;padding-bottom:60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hero{background:linear-gradient(135deg,var(--escuro),var(--navy));color:#fff;padding-block:44px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));clip-path:polygon(0 0,100% 0,100% 88%,0 100%)}
+.hero .in{max-width:760px;margin:0 auto}
+.kick{color:var(--azul);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.hero h1{font-size:clamp(26px,6.5vw,40px);line-height:1.15;text-transform:uppercase}
+.hero p{margin-top:14px;color:#cfe3f5;font-size:16px;max-width:560px}
+h2{font-size:22px;margin:34px 0 10px;text-transform:uppercase}
+h2 small{display:block;color:var(--azul2);font-size:13px;letter-spacing:.1em;margin-bottom:4px;font-weight:700}
+h3{font-size:17px;margin:18px 0 8px;font-weight:700}
+p{margin:8px 0;color:var(--texto)}
+ul.chk{list-style:none;margin:8px 0}
+ul.chk li{padding:6px 0 6px 28px;position:relative;color:var(--texto)}
+ul.chk li::before{content:"";position:absolute;left:0;top:10px;width:16px;height:16px;border-radius:50%;background:var(--azul)}
+ul.chk li::after{content:"";position:absolute;left:5px;top:13px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.cards{display:grid;gap:14px;margin-top:-14px}
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(10,47,89,.1);border-left:5px solid var(--azul)}
+.card .n{color:var(--azul2);font-weight:700;font-size:13px;letter-spacing:.1em}
+.card h3{margin:4px 0 6px;font-size:20px}
+.card p{margin:0 0 14px}
+.btn{display:inline-block;background:var(--azul2);color:#fff;padding:12px 20px;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--azul2);border:1.5px solid var(--azul2)}
+.btn:active{transform:scale(.98)}
+.chat{background:#e9f1f8;border-radius:16px;padding:14px;margin:10px 0}
+.chat .lb{font-size:12px;font-weight:700;color:var(--cinza);text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+.msg{min-width:0;overflow-wrap:anywhere;max-width:86%;padding:9px 13px;border-radius:14px;margin:6px 0;font-size:14.5px;line-height:1.45}
+.msg.c{background:#fff;color:var(--navy);border-bottom-left-radius:4px}
+.msg.i{background:var(--navy);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.msg b{display:block;font-size:11px;opacity:.7;margin-bottom:2px;letter-spacing:.05em}
+.rel{background:#fff;border:1.5px solid var(--azul);border-radius:14px;padding:14px 16px;margin:12px 0}
+.rel .lb{font-size:12px;font-weight:700;color:var(--azul2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.rel p{margin:3px 0;font-size:14.5px}
+.valor{background:linear-gradient(135deg,var(--azul2),var(--azul));color:#fff;border-radius:16px;padding:22px;box-shadow:0 10px 26px rgba(11,151,213,.35);margin:12px 0}
+.valor .v{font-size:30px;font-weight:700;font-family:"Telegraf","Segoe UI",system-ui,sans-serif}
+.valor .m{font-size:17px;margin-top:2px}
+.valor .s{font-size:13px;margin-top:10px}
+.valor.combinar{background:#fff;color:var(--navy);border:1.5px solid var(--azul);box-shadow:none}
+.valor.combinar .v{color:var(--azul2)}
+.box{border:1.5px solid var(--azul);border-radius:14px;padding:14px 16px;margin:14px 0;background:#fff}
+.box.open{background:var(--aviso-bg);border-color:var(--aviso-bd)}
+.box h3{margin:0 0 6px;font-size:15px}
+.duo{display:grid;gap:12px}
+.two{background:#fff;border-radius:14px;padding:16px;border-top:4px solid var(--azul);min-width:0}
+.two h3{margin:0 0 6px}
+.foot{margin-top:34px;padding:18px;background:var(--navy);color:#fff;border-radius:14px;font-size:14px}
+.foot b{color:var(--azul)}
+.nav3{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.seg{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;margin:14px 0 6px;-webkit-overflow-scrolling:touch}
+.seg button{flex:0 0 auto;background:#fff;color:var(--navy);border:1.5px solid var(--linha);padding:9px 16px;border-radius:22px;font-size:14px;font-weight:700;white-space:nowrap}
+.seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.exemplo{display:inline-block;background:#e6f4fc;color:var(--azul2);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:12px;margin-bottom:6px}
+.doc{background:#fff;border:1.5px solid var(--linha);border-radius:12px;margin:8px 0}
+.doc summary{list-style:none;cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;gap:10px}
+.doc summary::-webkit-details-marker{display:none}
+.doc summary::after{content:"+";color:var(--azul2);font-size:20px;line-height:1}
+.doc[open] summary::after{content:"–"}
+.doc .dc{padding:0 16px 14px}
+.doc ol{padding-left:20px;color:var(--texto)}
+.doc li{padding:3px 0}
+.setor{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin:18px 0 4px}
+
+/* manual da SegSatt dentro do celular */
+.phone{max-width:400px;margin:16px auto;background:var(--m-ink);border-radius:30px;border:6px solid #0d0907;box-shadow:0 18px 40px rgba(4,27,51,.35);overflow:hidden;color:var(--m-paper)}
+.phone .mh{padding:22px 18px 14px;background:linear-gradient(180deg,var(--m-ink2),var(--m-ink))}
+.phone .mb{font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--m-orange)}
+.phone .mh h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:22px;line-height:1.2;margin:8px 0 6px;color:var(--m-paper)}
+.phone .mh p{font-size:13px;color:var(--m-steel);margin:0}
+.phone .badge{display:inline-block;margin-top:10px;border:1px solid var(--m-orange);color:var(--m-orange);font-size:11px;padding:3px 10px;border-radius:12px}
+.phone .mnav{display:flex;gap:6px;overflow-x:auto;padding:8px 14px;border-block:1px solid var(--m-line);background:var(--m-ink)}
+.phone .mnav button{flex:0 0 auto;background:transparent;color:var(--m-steel);border:1px solid var(--m-line);padding:7px 12px;border-radius:16px;font-size:13px;white-space:nowrap}
+.phone .mnav button.on{color:var(--m-paper);border-color:var(--m-orange);background:rgba(217,85,43,.14)}
+.phone .mp{padding:18px;min-height:340px}
+.phone .mp h4{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:20px;margin-bottom:12px}
+.phone .step,.phone .tile{background:var(--m-ink2);border:1px solid var(--m-line);border-radius:10px;padding:12px 14px;margin:8px 0}
+.phone .step strong,.phone .tile strong{display:block;font-size:14.5px;margin-bottom:2px}
+.phone .step span,.phone .tile span{font-size:13px;color:var(--m-steel)}
+.phone .step{counter-increment:s;padding-left:46px;position:relative}
+.phone .steps{counter-reset:s}
+.phone .step::before{content:counter(s);position:absolute;left:12px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--m-orange);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.phone .alert{border-left:3px solid var(--m-orange);background:var(--m-ink2);padding:12px 14px;border-radius:6px;margin:8px 0;font-size:13.5px}
+.phone details{background:var(--m-ink2);border:1px solid var(--m-line);border-radius:10px;margin:8px 0}
+.phone summary{list-style:none;cursor:pointer;padding:12px 14px;font-size:14px;display:flex;justify-content:space-between;gap:10px}
+.phone summary::-webkit-details-marker{display:none}
+.phone summary::after{content:"+";color:var(--m-orange);font-size:18px;line-height:1}
+.phone details[open] summary::after{content:"–"}
+.phone details p{padding:0 14px 12px;font-size:13px;color:var(--m-steel);margin:0}
+.phone .ct{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--m-ink2);border:1px solid var(--m-line);border-radius:10px;padding:12px 14px;margin:8px 0}
+.phone .ct strong{font-size:14px;display:block}
+.phone .ct span{font-size:12.5px;color:var(--m-steel)}
+.phone .ct button{background:var(--m-orange);color:#fff;border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:700;flex:0 0 auto}
+.phone .nota{font-size:11.5px;color:var(--m-steel);margin-top:10px}
+.legenda{text-align:center;font-size:13px;color:var(--cinza);margin:4px 0 0}
+@media(min-width:640px){.duo{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(160deg,var(--escuro),var(--navy))}
+.lbox{background:#fff;border-radius:18px;padding:32px 26px;width:100%;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.lbox h1{font-size:24px;margin-bottom:6px;font-weight:400}
+.lbox p{color:var(--cinza);font-size:14px;margin-bottom:18px}
+.lbox label{display:block;font-size:12px;font-weight:700;color:var(--cinza);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.06em}
+.lbox input{width:100%;padding:13px 14px;border:1.5px solid var(--linha);border-radius:10px;font-size:16px;color:var(--navy);background:#fff}
+.lbox .go{width:100%;margin-top:20px;padding:14px;background:var(--azul2);color:#fff;font-size:16px;font-weight:700;border-radius:10px}
+#lerr{color:#c0392b;font-size:13px;margin-top:10px;min-height:18px}
+</style>
+</head>
+<body>
+<div id="login">
+  <form class="lbox" id="lform" autocomplete="off">
+    <h1>Proposta SegSatt</h1>
+    <p>Acesso restrito. Digite seu usuário e senha.</p>
+    <label for="u">Usuário</label>
+    <input id="u" type="text" autocapitalize="none" autocorrect="off" spellcheck="false">
+    <label for="p">Senha</label>
+    <input id="p" type="password" autocapitalize="none" autocorrect="off" spellcheck="false">
+    <button class="go" type="submit">Entrar</button>
+    <div id="lerr"></div>
+  </form>
+</div>
+<div id="site" class="hidden">
+  <div class="top">
+    <div class="brand">ATENDE CERTO <span>IA</span></div>
+    <button class="back hidden" id="backbtn" data-go="home">← Início</button>
+  </div>
+
+  <!-- HOME -->
+  <section id="home" class="tela">
+    <div class="hero"><div class="in">
+      <div class="kick">SegSatt</div>
+      <h1>Três frentes, um mesmo objetivo: a SegSatt atendendo e vendendo melhor</h1>
+      <p>Você pode contratar uma frente, outra, ou as três. Em cada uma, veja como funcionaria na prática para a SegSatt.</p>
+    </div></div>
+    <div class="wrap">
+      <div class="cards">
+        <div class="card">
+          <div class="n">FRENTE 1</div>
+          <h3>Atendimento + IA + CRM</h3>
+          <p>Nenhum cliente fica sem resposta, nem fora do horário, e o Proteção 360° chega a quem ainda não conhece.</p>
+          <button class="btn" data-go="f1">Ver essa frente →</button>
+        </div>
+        <div class="card">
+          <div class="n">FRENTE 2</div>
+          <h3>Manual Digital</h3>
+          <p>O cliente tira a dúvida prática em segundos, sem precisar ligar. O manual está funcionando aqui dentro.</p>
+          <button class="btn" data-go="f2">Ver essa frente →</button>
+        </div>
+        <div class="card">
+          <div class="n">FRENTE 3</div>
+          <h3>Ambiente Inteligente</h3>
+          <p>A central de documentos e os assistentes da equipe, montados com o que a SegSatt faz.</p>
+          <button class="btn" data-go="f3">Ver essa frente →</button>
+        </div>
+      </div>
+      <div class="foot"><b>Validade da proposta:</b> 10 dias.<br>Escolha por onde quer começar. Nada aqui trava as outras frentes.</div>
+    </div>
+  </section>
+
+  <!-- FRENTE 1 -->
+  <section id="f1" class="tela hidden">
+    <div class="hero"><div class="in">
+      <div class="kick">SegSatt · Frente 1</div>
+      <h1>Nenhum cliente espera até segunda</h1>
+      <p>Fora do horário comercial, no fim de semana e no feriado, quem procura a SegSatt fica sem resposta. A IA cobre essa lacuna sem tirar o humano do fechamento.</p>
+    </div></div>
+    <div class="wrap">
+      <h2><small>COMO FUNCIONA</small>Um agente, dois tipos de contato</h2>
+      <p>Um agente no WhatsApp identifica logo no início se é lead novo ou cliente atual e oferece o caminho mais rápido: tirar a dúvida com a IA, acessar o suporte ou aguardar um atendente humano em horário comercial.</p>
+
+      <h2><small>SIMULAÇÃO 1</small>Cliente atual</h2>
+      <div class="chat">
+        <div class="lb">WhatsApp · SegSatt</div>
+        <div class="msg c"><b>CLIENTE</b>Já sou cliente. Dá pra ter cerca elétrica também?</div>
+        <div class="msg i"><b>IA</b>Dá sim! Ela faz parte do Proteção 360°, que integra tudo num monitoramento único. Quer que eu explique ou prefere falar com um consultor?</div>
+        <div class="msg c"><b>CLIENTE</b>Meu vizinho também quer ver isso.</div>
+        <div class="msg i"><b>IA</b>Que ótimo! Me passa o contato dele que a gente chama direto, sem ele precisar correr atrás.</div>
+      </div>
+
+      <h2><small>SIMULAÇÃO 2</small>Lead de anúncio</h2>
+      <div class="chat">
+        <div class="lb">WhatsApp · SegSatt</div>
+        <div class="msg c"><b>CLIENTE</b>Quero saber mais sobre a Proteção 360.</div>
+        <div class="msg i"><b>IA</b>Que bom que chegou até a gente! É nossa solução completa: câmeras, alarme, cerca e controle de acesso com monitoramento integrado. É pra residência, comércio ou empresa?</div>
+      </div>
+
+      <h2><small>PROTEÇÃO 360°</small>O que muda nessa frente</h2>
+      <ul class="chk">
+        <li>Apresenta, sem forçar, os serviços que o cliente atual ainda não conhece.</li>
+        <li>Pede o contato de quem o cliente indicar, e a SegSatt chama.</li>
+        <li>Abertura própria para quem chega por anúncio.</li>
+        <li>O 360° pode usar o mesmo número do atendimento ou um número separado. A decisão é da SegSatt.</li>
+      </ul>
+
+      <h2><small>SOBRE O CRM</small>A IA é o carro-chefe, o CRM é bônus</h2>
+      <p>Três formas de combinar:</p>
+      <ul class="chk">
+        <li>Só o CRM Atende Certo IA</li>
+        <li>Só o sistema atual da SegSatt</li>
+        <li>Os dois, cada um numa fase</li>
+      </ul>
+
+      <div class="box"><h3>Regras de segurança</h3>
+        <p>A IA nunca informa valores sem validação humana, nunca dá diagnóstico técnico da instalação, nunca aceita comprovante como prova e nunca inventa informação. Quando o assunto é contrato, fatura ou chamado, oferece o suporte ou transfere.</p></div>
+
+      <h2><small>INCLUSO</small>O que a implantação cobre</h2>
+      <ul class="chk">
+        <li>Briefing da empresa</li>
+        <li>Agente de IA no WhatsApp com triagem lead novo / cliente atual</li>
+        <li>FAQ e regras de segurança</li>
+        <li>Cross-sell e indicação do 360°</li>
+        <li>Integração com o CRM ou combinação com o sistema atual</li>
+        <li>Acompanhamento presencial na implantação</li>
+      </ul>
+
+      <h2><small>INVESTIMENTO</small>Implantação e mensalidade</h2>
+      <div class="valor">
+        <div class="v">R$ 5.000</div><div class="m">de implantação</div>
+        <div class="v" style="margin-top:12px">R$ 750<span style="font-size:17px;font-weight:400">/mês</span></div>
+        <div class="m">de manutenção, ajustes e suporte</div>
+        <div class="s">Mensalidade sem fidelidade.</div>
+      </div>
+
+      <div class="box open"><h3>Pontos em aberto, precisamos de vocês</h3>
+        <p>Horário comercial · canal de emergência · política de suporte pós-venda · se o orçamento é sem custo · nome do sistema atual · volume de contatos por mês · se a base de clientes aceita receber mensagem.</p></div>
+
+      <div class="nav3">
+        <button class="btn ghost" data-go="home">← Início</button>
+        <button class="btn" data-go="f2">Próxima: Manual Digital →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRENTE 2 -->
+  <section id="f2" class="tela hidden">
+    <div class="hero"><div class="in">
+      <div class="kick">SegSatt · Frente 2</div>
+      <h1>O cliente resolve rápido, a SegSatt atende menos ligação repetida</h1>
+      <p>Um link enviado depois do fechamento do contrato, para cliente novo e cliente atual. Abaixo está o manual funcionando, como o cliente recebe no celular.</p>
+    </div></div>
+    <div class="wrap">
+      <h2><small>NA PRÁTICA</small>O manual no celular do cliente</h2>
+      <p>Toque nos itens do menu e nas perguntas para navegar, como o cliente faria.</p>
+
+      <div class="phone" data-tabs>
+        <div class="mh">
+          <div class="mb">SEGSATT</div>
+          <h3>Manual do seu sistema de segurança</h3>
+          <p>Guia rápido para aproveitar todos os recursos da sua proteção, sem precisar ligar pra gente toda vez.</p>
+          <span class="badge">Válido para o pacote Proteção 360°</span>
+        </div>
+        <div class="mnav">
+          <button class="on" data-tab="m1">Primeiros passos</button>
+          <button data-tab="m2">Armar e desarmar</button>
+          <button data-tab="m3">Se disparar</button>
+          <button data-tab="m4">No aplicativo</button>
+          <button data-tab="m5">Manutenção</button>
+          <button data-tab="m6">Dúvidas</button>
+          <button data-tab="m7">Contato</button>
+        </div>
+        <div class="mp">
+          <div class="tp" id="m1">
+            <h4>Primeiros passos</h4>
+            <div class="steps">
+              <div class="step"><strong>Baixe o app SEGSATT Integra</strong><span>Use o código enviado pelo técnico na instalação.</span></div>
+              <div class="step"><strong>Cadastre sua senha de uso</strong><span>É a senha para armar, desarmar e liberar visitantes.</span></div>
+              <div class="step"><strong>Cadastre os contatos autorizados</strong><span>Quem a central pode chamar em caso de ocorrência.</span></div>
+              <div class="step"><strong>Faça um teste</strong><span>Arme o sistema com o app aberto e veja a confirmação.</span></div>
+            </div>
+          </div>
+          <div class="tp hidden" id="m2">
+            <h4>Armar e desarmar</h4>
+            <div class="tile"><strong>No teclado da central</strong><span>Digite sua senha de 4 dígitos seguida de #.</span></div>
+            <div class="tile"><strong>Por telefone</strong><span>Informe sua senha verbal à central.</span></div>
+            <div class="tile"><strong>Modo Ausente e modo Noturno</strong><span>Ausente arma tudo. Noturno mantém as portas internas liberadas para você circular em casa.</span></div>
+            <div class="tile"><strong>Liberar um visitante</strong><span>Envie um convite com QR Code ou chave virtual, sem compartilhar sua senha.</span></div>
+          </div>
+          <div class="tp hidden" id="m3">
+            <h4>Se o alarme disparar</h4>
+            <div class="alert">A central de monitoramento é notificada automaticamente.</div>
+            <div class="tile"><strong>Foi engano e você está em casa</strong><span>Desarme o sistema normalmente.</span></div>
+            <div class="tile"><strong>Não foi engano, ou você não está no local</strong><span>Não entre. Aguarde a confirmação da central ou de uma equipe de apoio.</span></div>
+          </div>
+          <div class="tp hidden" id="m4">
+            <h4>Tudo no aplicativo</h4>
+            <div class="tile"><strong>Câmeras ao vivo e gravações</strong><span>Veja de qualquer lugar, com internet.</span></div>
+            <div class="tile"><strong>Portas e portões</strong><span>Abra remotamente quando precisar.</span></div>
+            <div class="tile"><strong>Histórico de acesso</strong><span>Cada entrada registrada com foto e horário.</span></div>
+            <div class="tile"><strong>Avisar a portaria</strong><span>Informe entregas e visitas com antecedência.</span></div>
+          </div>
+          <div class="tp hidden" id="m5">
+            <h4>Manutenção básica</h4>
+            <div class="steps">
+              <div class="step"><strong>Bateria da central</strong><span>Dura cerca de 12 meses. O app avisa quando estiver fraca.</span></div>
+              <div class="step"><strong>Sensores e cerca elétrica</strong><span>Mantenha livres de pintura e de objetos encostados.</span></div>
+              <div class="step"><strong>Revisão preventiva</strong><span>Recomendada a cada 6 meses.</span></div>
+            </div>
+          </div>
+          <div class="tp hidden" id="m6">
+            <h4>Perguntas frequentes</h4>
+            <details open><summary>Esqueci minha senha, e agora?</summary><p>Fale com a central com seus dados cadastrais em mãos. Na maioria dos casos a senha é reemitida sem visita técnica.</p></details>
+            <details><summary>Funciona sem internet?</summary><p>Sim. A central tem comunicação própria. Só o acesso pelo app depende de internet.</p></details>
+            <details><summary>Quantas pessoas podem usar o app?</summary><p>Não há limite fixo. Você define as permissões de cada usuário secundário.</p></details>
+            <details><summary>O alarme disparou sem motivo, é defeito?</summary><p>Disparos isolados por vento, insetos ou animais pequenos são normais. Se forem recorrentes, chame a manutenção.</p></details>
+          </div>
+          <div class="tp hidden" id="m7">
+            <h4>Fale com a gente</h4>
+            <p style="color:var(--m-steel);font-size:13px;margin-bottom:8px">Este manual cobre o dia a dia. Para o resto, a SegSatt está sempre à disposição.</p>
+            <div class="ct"><div><strong>Central de monitoramento 24h</strong><span id="n1">(91) 0000-0000</span></div><button data-copy="n1">Copiar</button></div>
+            <div class="ct"><div><strong>WhatsApp de suporte</strong><span id="n2">(91) 9 0000-0000</span></div><button data-copy="n2">Copiar</button></div>
+            <div class="nota">Números de exemplo. Na versão final entram os da SegSatt.</div>
+          </div>
+        </div>
+      </div>
+      <p class="legenda">Texto e equipamentos serão ajustados ao que a SegSatt realmente instala.</p>
+
+      <h2><small>ENVIO</small>Como o cliente recebe</h2>
+      <ul class="chk">
+        <li>Depois do fechamento do contrato, o cliente recebe o link no WhatsApp.</li>
+        <li>Serve também para quem já é cliente.</li>
+        <li>A IA da frente 1 envia o manual quando o cliente faz uma pergunta prática.</li>
+      </ul>
+
+      <h2><small>INCLUSO</small>O que o trabalho cobre</h2>
+      <ul class="chk">
+        <li>Manual adaptado aos equipamentos reais</li>
+        <li>Hospedagem do link</li>
+        <li>Uma rodada de ajustes</li>
+      </ul>
+
+      <h2><small>INVESTIMENTO</small>Valor</h2>
+      <div class="valor combinar"><div class="v">A combinar</div></div>
+
+      <div class="box open"><h3>Pontos em aberto, precisamos de vocês</h3>
+        <p>Equipamentos reais que a SegSatt instala · manual único ou separado por tipo de cliente · quem atualiza o conteúdo · números de contato.</p></div>
+
+      <div class="nav3">
+        <button class="btn ghost" data-go="f1">← Frente 1</button>
+        <button class="btn" data-go="f3">Próxima: Ambiente Inteligente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRENTE 3 -->
+  <section id="f3" class="tela hidden">
+    <div class="hero"><div class="in">
+      <div class="kick">SegSatt · Frente 3 · Gestão interna</div>
+      <h1>Ambiente Inteligente da SegSatt</h1>
+      <p>A equipe encontra o que precisa na hora e presta contas do dia sem o gestor precisar cobrar. Veja um ambiente montado com o que a SegSatt faz.</p>
+    </div></div>
+    <div class="wrap">
+      <p style="margin-top:6px"><span class="exemplo">Exemplo ilustrativo</span><br>Setores, documentos e assistentes abaixo foram montados a partir do que a SegSatt vende e atende. Na implantação, tudo é refeito com o que a equipe realmente faz.</p>
+
+      <div data-tabs>
+        <div class="seg">
+          <button class="on" data-tab="a1">Central de Documentos</button>
+          <button data-tab="a2">Assistentes da equipe</button>
+          <button data-tab="a3">IA da Empresa</button>
+        </div>
+
+        <!-- Central -->
+        <div class="tp" id="a1">
+          <h2 style="margin-top:12px"><small>CENTRAL DE DOCUMENTOS</small>Na Central você procura</h2>
+          <p>Um link organizado por setor. A equipe abre no celular, escolhe o setor e encontra o documento. Toque num documento para abrir.</p>
+
+          <div class="setor">Instalação e Manutenção</div>
+          <details class="doc"><summary>Checklist de instalação</summary><div class="dc"><ol>
+            <li>Confirmar o que foi contratado no pedido.</li>
+            <li>Conferir equipamentos e material antes de sair.</li>
+            <li>Instalar e testar cada sistema: câmeras, alarme, cerca e controle de acesso.</li>
+            <li>Cadastrar o cliente no app SEGSATT Integra.</li>
+            <li>Enviar o manual digital e registrar fotos da entrega.</li>
+          </ol></div></details>
+          <details class="doc"><summary>Revisão preventiva a cada 6 meses</summary><div class="dc"><ol>
+            <li>Conferir a bateria da central (dura cerca de 12 meses).</li>
+            <li>Verificar sensores e cerca elétrica, livres de pintura e objetos.</li>
+            <li>Testar o disparo e a comunicação com a central.</li>
+            <li>Registrar a visita no histórico do cliente.</li>
+          </ol></div></details>
+
+          <div class="setor">Monitoramento</div>
+          <details class="doc"><summary>Procedimento de disparo de alarme</summary><div class="dc"><ol>
+            <li>A central recebe o aviso automaticamente.</li>
+            <li>Contatar o cliente e confirmar a senha verbal.</li>
+            <li>Se não confirmar, acionar a equipe de apoio.</li>
+            <li>Orientar o cliente a não entrar no local até a confirmação.</li>
+            <li>Registrar a ocorrência.</li>
+          </ol></div></details>
+          <details class="doc"><summary>Disparos sem motivo</summary><div class="dc"><p>Vento, insetos e animais pequenos causam disparos isolados e não indicam defeito. Se for recorrente, abrir chamado de manutenção.</p></div></details>
+
+          <div class="setor">Comercial e Atendimento</div>
+          <details class="doc"><summary>Roteiro de atendimento Proteção 360°</summary><div class="dc"><ol>
+            <li>Perguntar se é residência, comércio ou empresa.</li>
+            <li>Perguntar o que o cliente já tem instalado.</li>
+            <li>Apresentar o que falta: câmeras, alarme, cerca ou controle de acesso.</li>
+            <li>Pedir o contato de quem o cliente quiser indicar.</li>
+            <li>Passar para o consultor quando envolver valor.</li>
+          </ol></div></details>
+          <details class="doc"><summary>Respostas rápidas para clientes</summary><div class="dc"><p>Região atendida, prazo médio de instalação, orçamento, suporte pós-venda e endereço da SegSatt, com a resposta oficial de cada um.</p></div></details>
+
+          <div class="setor">Administrativo</div>
+          <details class="doc"><summary>Fluxo de contrato novo</summary><div class="dc"><ol>
+            <li>Contrato fechado e registrado no sistema.</li>
+            <li>Agendar a instalação com a equipe técnica.</li>
+            <li>Enviar o manual digital ao cliente.</li>
+            <li>Agendar a primeira revisão para 6 meses depois.</li>
+          </ol></div></details>
+        </div>
+
+        <!-- Assistentes -->
+        <div class="tp hidden" id="a2">
+          <h2 style="margin-top:12px"><small>ASSISTENTES DA EQUIPE</small>Cada função com o seu assistente</h2>
+          <p>Cada pessoa abre o dia, conta o que fez e o assistente conduz até o fim. O relatório chega pronto ao gestor. A implantação inclui 3 assistentes: 1 sob medida e 2 de fechamento do dia.</p>
+
+          <h3>Sob medida · Assistente da Instalação</h3>
+          <p>Para funções com tarefas definidas. Ele diz o que fazer, cobra o que falta e só fecha o dia quando tudo foi cumprido.</p>
+          <div class="chat">
+            <div class="lb">Técnico de campo · exemplo</div>
+            <div class="msg i"><b>ASSISTENTE</b>Bom dia, Marcos! Hoje: 1) instalação de câmeras às 8h, 2) revisão preventiva às 14h. O material já está conferido?</div>
+            <div class="msg c"><b>MARCOS</b>Conferido.</div>
+            <div class="msg i"><b>ASSISTENTE</b>Combinado. Ao terminar a instalação, me diga: câmeras testadas, cliente cadastrado no app e manual enviado.</div>
+            <div class="msg c"><b>MARCOS</b>Câmeras testadas e cliente cadastrado.</div>
+            <div class="msg i"><b>ASSISTENTE</b>Falta enviar o manual digital ao cliente. Só fecho essa tarefa depois disso.</div>
+          </div>
+          <div class="rel"><div class="lb">Relatório para o gestor</div>
+            <p><b>Cumprido:</b> material conferido, câmeras testadas, cadastro no app.</p>
+            <p><b>Pendente:</b> envio do manual digital.</p>
+            <p><b>Motivo:</b> aguardando o técnico informar.</p></div>
+
+          <h3>Padrão · Fechamento do Dia do Atendimento</h3>
+          <p>Para funções sem lista fixa. A pessoa conta o dia e o assistente pergunta até o relato ficar completo.</p>
+          <div class="chat">
+            <div class="lb">Atendimento comercial · exemplo</div>
+            <div class="msg i"><b>ASSISTENTE</b>Oi, Ana! Vamos fechar o dia. Quantos contatos você atendeu hoje?</div>
+            <div class="msg c"><b>ANA</b>Uns 12.</div>
+            <div class="msg i"><b>ASSISTENTE</b>Algum pediu orçamento ou perguntou sobre o Proteção 360°?</div>
+            <div class="msg c"><b>ANA</b>Dois pediram orçamento. Um cliente indicou o vizinho.</div>
+            <div class="msg i"><b>ASSISTENTE</b>Anotado. Você pegou o contato do vizinho? E o que ficou pendente para amanhã?</div>
+          </div>
+          <div class="rel"><div class="lb">Relatório para o gestor</div>
+            <p><b>Contatos:</b> 12 · <b>Orçamentos:</b> 2 · <b>Indicação:</b> 1</p>
+            <p><b>Pendente:</b> contato do vizinho indicado.</p>
+            <p><b>Urgências:</b> nenhuma.</p></div>
+
+          <p style="margin-top:14px">O terceiro assistente segue o mesmo modelo, por exemplo um Fechamento do Dia para o Monitoramento.</p>
+        </div>
+
+        <!-- IA da Empresa -->
+        <div class="tp hidden" id="a3">
+          <h2 style="margin-top:12px"><small>IA DA EMPRESA</small>Na IA da Empresa você pergunta</h2>
+          <p>Mesmo conteúdo, num espaço único da equipe. Em vez de procurar o documento, a pessoa pergunta e recebe a resposta pronta, baseada nos documentos da SegSatt.</p>
+          <div class="chat">
+            <div class="lb">IA da SegSatt · exemplo</div>
+            <div class="msg c"><b>OPERADOR</b>O alarme de um cliente disparou e ele diz que foi engano. O que eu faço?</div>
+            <div class="msg i"><b>IA DA EMPRESA</b>Confirme a senha verbal do cliente. Se confirmar, registre como engano. Se não confirmar, acione a equipe de apoio, oriente o cliente a não entrar no local e registre a ocorrência.</div>
+            <div class="msg c"><b>OPERADOR</b>E se for a terceira vez no mês?</div>
+            <div class="msg i"><b>IA DA EMPRESA</b>Disparo recorrente pede visita: abra um chamado de manutenção para checar sensores e cerca.</div>
+          </div>
+          <div class="box"><h3>Diferença para a Central</h3>
+            <p>A Central é um link grátis por pessoa, onde se procura. A IA da Empresa é um espaço da equipe onde se pergunta, com acesso pago à parte, direto ao fornecedor.</p></div>
+        </div>
+      </div>
+
+      <h2><small>INCLUSO</small>O que o trabalho cobre</h2>
+      <ul class="chk">
+        <li>Manual de funções e fluxo de até 4 setores</li>
+        <li>3 assistentes (1 sob medida e 2 de fechamento do dia)</li>
+        <li>4 sessões de trabalho</li>
+        <li>Pronto em 30 dias após o briefing</li>
+      </ul>
+
+      <h2><small>INVESTIMENTO</small>Implantação e mensalidade</h2>
+      <p>Mesmo valor para a Central de Documentos e para a IA da Empresa.</p>
+      <div class="valor">
+        <div class="v">R$ 6.000</div><div class="m">de implantação</div>
+        <div class="v" style="margin-top:12px">R$ 500<span style="font-size:17px;font-weight:400">/mês</span></div>
+        <div class="m">após a entrega</div>
+        <div class="s">Setor extra: R$ 1.000 + R$ 100/mês.<br>Fora do escopo, por hora: R$ 600 avulsa ou R$ 450/h no pacote de 10h.</div>
+      </div>
+
+      <div class="box open"><h3>Pontos em aberto, precisamos de vocês</h3>
+        <p>Quais setores e funções entram · quem presta contas para quem · horário e frequência do relatório · rotina de cada função.</p></div>
+
+      <div class="foot"><b>SegSatt</b> · Travessa Quintino Bocaiúva, 1135<br><b>Validade da proposta:</b> 10 dias.</div>
+
+      <div class="nav3">
+        <button class="btn ghost" data-go="f2">← Frente 2</button>
+        <button class="btn" data-go="home">Voltar ao início</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function ir(id){
+    var t=document.querySelectorAll(".tela");
+    for(var i=0;i<t.length;i++){ t[i].classList.add("hidden"); }
+    $(id).classList.remove("hidden");
+    $("backbtn").classList.toggle("hidden", id==="home");
+    window.scrollTo(0,0);
+  }
+  document.addEventListener("click",function(ev){
+    var g=ev.target.closest("[data-go]");
+    if(g){ ir(g.getAttribute("data-go")); return; }
+    var tb=ev.target.closest("[data-tab]");
+    if(tb){
+      var box=tb.closest("[data-tabs]");
+      var bs=box.querySelectorAll("[data-tab]");
+      for(var i=0;i<bs.length;i++){ bs[i].classList.toggle("on", bs[i]===tb); }
+      var ps=box.querySelectorAll(".tp");
+      var alvo=tb.getAttribute("data-tab");
+      for(var j=0;j<ps.length;j++){ ps[j].classList.toggle("hidden", ps[j].id!==alvo); }
+      return;
+    }
+    var cp=ev.target.closest("[data-copy]");
+    if(cp){
+      var el=$(cp.getAttribute("data-copy")); var txt=el.textContent;
+      var ok=function(){ cp.textContent="Copiado"; setTimeout(function(){cp.textContent="Copiar"},1500); };
+      var fallback=function(){
+        var r=document.createRange(); r.selectNodeContents(el);
+        var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      };
+      try{ navigator.clipboard.writeText(txt).then(ok,fallback); }catch(e){ fallback(); }
+    }
+  });
+})();
+
+(function(){
+  var HASH="49ed6b72c4a467ed3560653aead063837e0f168ee8858392ad8db1e45d676a31",KEY="segsatt_prop_ok";
+  var $=function(id){return document.getElementById(id)};
+  function ver(){ $("login").classList.add("hidden"); $("site").classList.remove("hidden"); }
+  function sha(t){ return crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)).then(function(b){
+    return Array.prototype.map.call(new Uint8Array(b),function(x){return ("0"+x.toString(16)).slice(-2)}).join(""); }); }
+  try{ if(sessionStorage.getItem(KEY)===HASH){ ver(); } }catch(e){}
+  $("lform").addEventListener("submit",function(ev){
+    ev.preventDefault();
+    sha($("u").value.trim().toLowerCase()+":"+$("p").value.trim()).then(function(h){
+      if(h===HASH){ try{sessionStorage.setItem(KEY,HASH)}catch(e){} ver(); }
+      else{ $("lerr").textContent="Usuário ou senha incorretos."; }
+    }).catch(function(){ $("lerr").textContent="Abra o link em um navegador atualizado."; });
+  });
+})();
+</script>
+</body>
+</html>
