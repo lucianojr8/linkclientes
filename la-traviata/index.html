@@ -105,25 +105,10 @@ b{font-weight:800;}
 .nav button{font-size:11px;}
 .opcao .t:only-child{margin:1px 0;}
 .opcao .nota{font-size:11px;color:#8a99ab;margin-top:8px;}
-#login{position:fixed;inset:0;z-index:50;background:linear-gradient(135deg,#041B33,#0A2F59);display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Garet',Arial,sans-serif;}
-#login .box{width:100%;max-width:340px;background:#fff;border-radius:14px;padding:26px 22px;box-shadow:0 20px 50px rgba(0,0,0,.35);}
-#login h3{font-family:'Telegraf',Arial;font-weight:400;text-transform:uppercase;letter-spacing:.5px;color:#0A2F59;font-size:17px;margin:0 0 4px;}
-#login p{font-size:12.5px;color:#5A6B80;margin:0 0 16px;}
-#login input{width:100%;box-sizing:border-box;border:1.5px solid #d8e6f0;border-radius:9px;padding:12px 13px;font-size:15px;font-family:inherit;margin-bottom:10px;color:#0A2F59;}
-#login input:focus{outline:none;border-color:#14B4F2;}
-#login button{width:100%;border:none;border-radius:9px;padding:13px;background:#14B4F2;color:#fff;font-weight:800;font-size:15px;font-family:inherit;cursor:pointer;}
-#login .err{display:none;color:#c0392b;font-size:12.5px;margin:2px 0 10px;}
-.app.trancado{display:none;}
 </style>
 </head>
 <body>
-<div id="login"><form class="box" onsubmit="entrar(event)">
-<h3>Proposta La Traviata</h3><p>Atende Certo IA · acesso restrito</p>
-<input id="lu" placeholder="Usuário" autocomplete="username" autocapitalize="none">
-<input id="ls" type="password" placeholder="Senha" autocomplete="current-password">
-<div class="err" id="lerr">Usuário ou senha incorretos.</div>
-<button type="submit">Entrar</button></form></div>
-<div class="app trancado">
+<div class="app">
 <div class="content" id="content">
 
 <!-- 1 CAPA -->
@@ -270,14 +255,6 @@ function calc(){
   document.getElementById('t-ini-x').textContent=parte;
 }
 calc();
-</script>
-<script>
-var LU="latraviata",LH="fa685da3e3df4d1f1d8438d023aa5eb2802adcb84764f53ab416d62db1a37c15";
-function libera(){document.getElementById('login').remove();document.querySelector('.app').classList.remove('trancado');}
-async function sha(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');}
-async function entrar(e){e.preventDefault();var u=document.getElementById('lu').value.trim().toLowerCase(),s=document.getElementById('ls').value;
- if(u===LU&&await sha(s)===LH){try{sessionStorage.setItem('lt_ok','1')}catch(x){}libera();}else{document.getElementById('lerr').style.display='block';}}
-try{if(sessionStorage.getItem('lt_ok')==='1')libera();}catch(x){}
 </script>
 </body>
 </html>
