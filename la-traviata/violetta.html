@@ -40,8 +40,8 @@ details{background:#fff;border:1px solid var(--linha);border-radius:12px;margin:
 summary{list-style:none;cursor:pointer;padding:15px 46px 15px 16px;position:relative;font-weight:800;font-size:16px;line-height:1.35;}
 summary::-webkit-details-marker{display:none;}
 summary::after{content:"+";position:absolute;right:14px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:#e3f4fc;color:var(--azulm);font-size:20px;line-height:26px;text-align:center;font-weight:400;}
-details[open] summary::after{content:"–";}
-details[open] summary{border-bottom:1px solid #eef3f7;}
+details[open]>summary::after{content:"–";}
+details[open]>summary{border-bottom:1px solid #eef3f7;}
 .dentro{padding:12px 16px 16px;}
 .dentro p{font-size:15px;}
 
@@ -103,6 +103,17 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
 .btn{display:block;width:100%;border:none;border-radius:12px;padding:16px;font-family:'Garet',Arial;font-weight:800;font-size:16px;cursor:pointer;margin-top:20px;background:#25d366;color:#fff;text-align:center;text-decoration:none;box-shadow:0 6px 16px rgba(37,211,102,.35);}
 .btn.navy{background:var(--navy);box-shadow:none;}
 .rodape{font-size:12px;color:var(--cinza);text-align:center;margin-top:24px;}
+.guia{font-size:14px;color:var(--cinza);margin:18px 0 6px;text-align:center;}
+details.sec{background:#fff;border:1px solid var(--linha);border-radius:14px;margin:10px 0;overflow:visible;box-shadow:0 2px 6px rgba(10,47,89,.05);}
+details.sec>summary{display:flex;align-items:center;gap:12px;padding:16px 50px 16px 14px;font-weight:400;}
+details.sec>summary .num{flex:0 0 34px;height:34px;border-radius:10px;background:var(--navy);color:#fff;font-family:'Telegraf',Arial;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;}
+details.sec>summary .tt{font-family:'Telegraf',Arial;font-weight:400;text-transform:uppercase;font-size:16px;letter-spacing:.4px;line-height:1.2;}
+details.sec>summary .tt small{display:block;font-family:'Garet',Arial;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--cinza);margin-top:3px;}
+details.sec>summary::after{background:var(--azul);color:#fff;}
+details.sec[open]>summary{border-bottom:1px solid #eef3f7;}
+details.sec[open]>summary .num{background:var(--azul);}
+.sec-c{padding:4px 14px 16px;}
+.sec-c .cards{margin:0 -14px;padding-left:14px;padding-right:14px;}
 </style>
 </head>
 <body>
@@ -116,8 +127,10 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
 
   <div class="corpo">
 
-    <!-- 1 -->
-    <h2>Quem é a Violetta</h2>
+    <p class="guia">Toque em cada parte para abrir.</p>
+    <details class="sec" id="sec1">
+      <summary><span class="num">1</span><span class="tt">Quem é a Violetta<small>O nome, o jeito e a postura</small></span></summary>
+      <div class="sec-c">
     <div class="violetta">
       <div class="avatar">V</div>
       <p>O nome vem da protagonista da ópera <b>La Traviata</b>, de Verdi, que dá nome ao restaurante.</p>
@@ -134,10 +147,12 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
         <p>A Violetta nunca finge ser funcionária. Ela diz com naturalidade que é o novo formato de atendimento, que responde de forma automática pra adiantar o pedido, e oferece chamar alguém da equipe.</p>
       </div>
     </details>
+      </div>
+    </details>
+    <details class="sec" id="sec2">
+      <summary><span class="num">2</span><span class="tt">Como funciona um pedido<small>Os 5 passos, com exemplos</small></span></summary>
+      <div class="sec-c">
 
-    <!-- 2 -->
-    <h2>Como funciona um pedido</h2>
-    <div class="h2sub">Toque em cada passo pra ver um exemplo</div>
     <div class="tempo">
       <details data-n="1">
         <summary>O cliente chama<small>A Violetta cumprimenta</small></summary>
@@ -187,9 +202,11 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
         </div>
       </details>
     </div>
-
-    <!-- 3 -->
-    <h2>O que ela faz</h2>
+      </div>
+    </details>
+    <details class="sec" id="sec3">
+      <summary><span class="num">3</span><span class="tt">O que ela faz<small>Sozinha, anotando ou chamando a equipe</small></span></summary>
+      <div class="sec-c">
     <p class="deslize">Deslize para o lado →</p>
     <div class="cards">
       <div class="card">
@@ -229,9 +246,11 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
         </ul>
       </div>
     </div>
-
-    <!-- 4 -->
-    <h2>Cuidado com os clientes da casa</h2>
+      </div>
+    </details>
+    <details class="sec" id="sec4">
+      <summary><span class="num">4</span><span class="tt">Cuidado com os clientes da casa<small>Clientes antigos e situações delicadas</small></span></summary>
+      <div class="sec-c">
     <details>
       <summary>Cliente antigo</summary>
       <div class="dentro"><p>Se ele só cumprimentar, a Violetta pergunta se vai repetir o último pedido e confirma o endereço de sempre.</p></div>
@@ -252,9 +271,11 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
       <summary>Desabafo ou assunto pessoal</summary>
       <div class="dentro"><p>Ela acolhe com uma frase gentil, sem dar conselho, e volta pro pedido. Se o cliente disser que está passando mal, orienta ligar pro SAMU (192) e avisa a equipe.</p></div>
     </details>
-
-    <!-- 5 -->
-    <h2>O que a Violetta nunca faz</h2>
+      </div>
+    </details>
+    <details class="sec" id="sec5">
+      <summary><span class="num">5</span><span class="tt">O que a Violetta nunca faz<small>Os limites dela</small></span></summary>
+      <div class="sec-c">
     <ul class="nunca">
       <li>Confirmar pagamento</li>
       <li>Dizer que o pedido saiu</li>
@@ -265,16 +286,20 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
       <li>Fechar pedido fora do horário</li>
       <li>Dar conselho médico, jurídico ou financeiro</li>
     </ul>
-
-    <!-- 6 -->
-    <h2>Como o cardápio é atualizado</h2>
+      </div>
+    </details>
+    <details class="sec" id="sec6">
+      <summary><span class="num">6</span><span class="tt">Como o cardápio é atualizado<small>Um único documento</small></span></summary>
+      <div class="sec-c">
     <div class="contorno">
       <p>Todo o cardápio do delivery (itens, preços, taxa, horário e formas de pagamento) fica num <b>único documento</b>. Mudou um preço ou saiu um prato, troca só esse documento e a Violetta já passa a usar a informação nova.</p>
     </div>
+      </div>
+    </details>
+    <details class="sec" id="sec7">
+      <summary><span class="num">7</span><span class="tt">Três exemplos de conversa<small>Conversas de exemplo</small></span></summary>
+      <div class="sec-c">
 
-    <!-- 7 -->
-    <h2>Três exemplos de conversa</h2>
-    <div class="h2sub">Toque pra abrir</div>
     <details>
       <summary>Cliente antigo e rápido</summary>
       <div class="dentro"><div class="zap">
@@ -301,9 +326,11 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
       </div></div>
     </details>
     <p class="nota">Os nomes, o endereço e os pedidos dos exemplos são ilustrativos.</p>
-
-    <!-- 8 -->
-    <h2>Sua opinião</h2>
+      </div>
+    </details>
+    <details class="sec" id="sec8">
+      <summary><span class="num">8</span><span class="tt">Sua opinião<small>Corrija ou acrescente o que quiser</small></span></summary>
+      <div class="sec-c">
     <div class="form-intro">
       <p>Montamos a Violetta a partir do cardápio e da nossa conversa, mas quem conhece os seus clientes é o senhor. <b style="color:#fff">Nada aqui está fechado.</b> Fique à vontade pra corrigir, tirar ou acrescentar o que quiser.</p>
     </div>
@@ -320,7 +347,8 @@ textarea:focus,input[type=text]:focus{outline:none;border-color:var(--azul);}
 
     <button class="btn" onclick="enviar()">Enviar minhas respostas</button>
     <p class="nota" style="text-align:center">Abre o WhatsApp com as respostas prontas. É só tocar em enviar.</p>
-
+      </div>
+    </details>
     <a class="btn navy" href="./">← Voltar à proposta</a>
     <div class="rodape">Luciano Jr · Assessoria de Gestão · Atende Certo IA</div>
   </div>
@@ -363,6 +391,15 @@ function enviar(){
   window.open('https://wa.me/5591984146292?text='+encodeURIComponent(m),'_blank');
 }
 function alertaVazio(){var n=document.querySelector('.btn+.nota');n.textContent='Preencha pelo menos uma resposta antes de enviar.';n.style.color='#c0392b';}
+</script>
+<script>
+document.querySelectorAll('details.sec').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(!d.open)return;
+    document.querySelectorAll('details.sec').forEach(function(o){if(o!==d)o.open=false;});
+    setTimeout(function(){d.scrollIntoView({behavior:'smooth',block:'start'});},60);
+  });
+});
 </script>
 </body>
 </html>
