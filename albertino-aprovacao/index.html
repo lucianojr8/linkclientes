@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistente Dr. Albertino</title>
+<style>
+:root{
+  --navy:#0A2F59;--azul:#14B4F2;--azulm:#0B97D5;--cinza:#5A6B80;--fundo:#F4F8FB;
+  --ok:#1E9E62;--okbg:#E7F6EE;--edbg:#FFF6E5;--ed:#C27C0E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:#1d2b3a;font-family:"Garet","Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+header{background:linear-gradient(135deg,#041B33,#0A2F59);color:#fff;padding:32px 16px 56px;clip-path:polygon(0 0,100% 0,100% 82%,0 100%);position:relative}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:var(--azul);clip-path:polygon(0 70%,100% 0,100% 30%,0 100%)}
+.wrap{max-width:720px;margin:0 auto}
+.marca{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--azul);font-weight:700}
+h1{font-family:"Telegraf","Segoe UI",Arial,sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:1px;font-size:26px;margin:8px 0 6px}
+header p{margin:0;color:#cfe3f5;font-size:15px}
+main{padding:8px 16px 40px}
+.intro{background:#fff;border:1.5px solid var(--azul);border-radius:12px;padding:14px 16px;margin:-24px 0 18px;position:relative;font-size:15px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(10,47,89,.07);border-left:5px solid var(--navy);transition:border-color .2s}
+.card.ok{border-left-color:var(--ok)}
+.card.edit{border-left-color:var(--ed)}
+.card h2{font-family:"Telegraf","Segoe UI",Arial,sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:.5px;color:var(--navy);margin:0 0 8px;display:flex;justify-content:space-between;gap:8px}
+.card h2 .st{font-size:12px;font-weight:700;text-transform:none;letter-spacing:0;white-space:nowrap}
+.ok .st{color:var(--ok)}.edit .st{color:var(--ed)}
+ul{margin:0;padding:0;list-style:none}
+li{position:relative;padding-left:24px;margin:6px 0;font-size:15px}
+li::before{content:"";position:absolute;left:2px;top:7px;width:12px;height:7px;border-left:2.5px solid var(--azulm);border-bottom:2.5px solid var(--azulm);transform:rotate(-45deg)}
+.ex{background:var(--fundo);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:14px;color:var(--cinza)}
+.ex b{color:var(--navy)}
+.btns{display:flex;gap:8px;margin-top:12px}
+button{font:inherit;font-size:15px;font-weight:700;border-radius:8px;padding:10px 14px;cursor:pointer;flex:1;border:1.5px solid var(--navy);background:#fff;color:var(--navy)}
+button.aprovar.on{background:var(--ok);border-color:var(--ok);color:#fff}
+button.editar.on{background:var(--ed);border-color:var(--ed);color:#fff}
+textarea,input{width:100%;font:inherit;font-size:15px;border:1.5px solid #c9d6e3;border-radius:8px;padding:10px;margin-top:10px;background:#fff;color:#1d2b3a}
+textarea{min-height:80px;resize:vertical}
+.hide{display:none}
+.perg label{display:block;font-size:15px;font-weight:700;color:var(--navy);margin-top:14px}
+.perg label:first-of-type{margin-top:4px}
+.perg input{margin-top:6px}
+.final{background:linear-gradient(135deg,#041B33,#0A2F59);color:#fff;border-radius:12px;padding:18px 16px;text-align:center}
+.final p{margin:0 0 12px;color:#cfe3f5;font-size:14px}
+.progresso{font-size:14px;margin-bottom:12px;color:#fff}
+.final button{background:var(--azul);border-color:var(--azul);color:#fff;box-shadow:0 4px 12px rgba(20,180,242,.35);width:100%}
+.final button.sec{background:transparent;border-color:#cfe3f5;color:#fff;box-shadow:none;margin-top:8px}
+.aviso{font-size:13px;margin-top:10px;color:#9fd8f5;min-height:18px}
+.status{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:13px;padding:8px 14px;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.2);max-width:calc(100% - 32px);text-align:center;z-index:9}
+.status.ok{background:var(--ok)}.status.erro{background:#B4441E}
+footer{padding-bottom:70px!important;text-align:center;font-size:12px;color:var(--cinza);padding:0 16px 28px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="marca">Atende Certo IA</div>
+  <h1>Assistente do Dr. Albertino</h1>
+  <p>Como a assistente do WhatsApp vai atender suas pacientes</p>
+</div></header>
+
+<main class="wrap">
+<div class="intro">Dr. Albertino, cada bloco abaixo mostra o que a assistente faz. Toque em <b>Aprovar</b> se estiver certo ou em <b>Corrigir</b> e escreva o que muda. Tudo é salvo sozinho: pode parar e continuar depois, até em outro aparelho.</div>
+
+<div id="cards"></div>
+
+<div class="card perg" id="perguntas">
+  <h2>Preciso que o senhor responda</h2>
+  <label for="p1">1. Cada turno tem 20 vagas, somando plano e particular. Quer reservar algumas só para o particular? Quantas?</label>
+  <input id="p1" placeholder="Ex: sim, 6 vagas">
+  <label for="p2">2. Quanto custa o preventivo quando o senhor pede para fazer depois da consulta?</label>
+  <input id="p2" placeholder="Ex: R$ 150">
+  <label for="p3">3. Se a paciente faltar, tem alguma regra?</label>
+  <input id="p3" placeholder="Ex: oferecer remarcar">
+  <label for="p4">4. Retorno de plano antes de 31 dias cobrado como particular: o senhor confirma que pode fazer isso com o plano?</label>
+  <input id="p4" placeholder="Sim / não / vou verificar">
+  <label for="p5">5. Qual o nome de quem atende na recepção?</label>
+  <input id="p5" placeholder="Nome">
+</div>
+
+<div class="final">
+  <div class="progresso" id="prog"></div>
+  <p>Suas respostas já chegam para o Luciano enquanto o senhor responde. Quando terminar, toque em concluir.</p>
+  <button id="concluir">Concluir</button>
+  <div class="aviso" id="aviso"></div>
+</div>
+</main>
+<div class="status" id="status"></div>
+<footer>Atende Certo IA · Intelligent Customer Operations</footer>
+
+<script>
+var BLOCOS=[
+{t:"Seus dados",i:[
+"Dr. Albertino Bastos, ginecologia e obstetrícia.",
+"Endereço: Hospital Porto Dias, Travessa Mauriti, 3050, Bloco B, térreo, consultório 5.",
+"Atende todos os planos de saúde.",
+"Pede à paciente só nome e sobrenome, e orienta trazer documento com foto."]},
+{t:"Como ela começa",i:[
+"Cumprimenta e pergunta se é consulta ou retorno.",
+"Pergunta se é ginecologia (rotina ou urgência) ou pré-natal (comum ou alto risco).",
+"Na ginecologia de rotina, pergunta se é o check-up anual e registra essa informação.",
+"Não pergunta o motivo da consulta.",
+"Sempre dá opções numeradas. A paciente responde com o número ou com o nome."]},
+{t:"Sua agenda",i:[
+"Plano: 3ª e 5ª de manhã (8h às 12h). 2ª, 4ª e 5ª à tarde (14h às 18h).",
+"Particular: segunda a quinta, manhã e tarde. Sexta só de manhã.",
+"Até 20 pacientes por turno.",
+"Ela marca o dia e o turno, e avisa que o atendimento é por ordem de chegada, a partir das 8h ou das 14h.",
+"Sempre oferece os 3 turnos mais próximos com vaga, a não ser que a paciente peça um dia específico."],
+ex:"<b>Exemplo:</b> \"Tenho estes turnos disponíveis: 1. Terça, 03/11, manhã · 2. Quinta, 05/11, manhã · 3. Quinta, 05/11, tarde\""},
+{t:"Plano e particular",i:[
+"A paciente de plano nunca ouve que o plano é pior, mais demorado ou que o senhor prefere particular.",
+"Quando há uma data no particular mais próxima que a do plano, ela aparece como última opção da lista, só identificada como particular, sem comentário. Isso acontece uma vez por conversa.",
+"Se a paciente de plano pedir um dia que só tem particular, ela mostra os dias do plano e oferece o particular naquele dia."]},
+{t:"Retorno",i:[
+"Pelo plano, o retorno só é marcado a partir de 31 dias da última consulta, inclusive no pré-natal.",
+"Ela pergunta a data da última consulta antes de falar do prazo, calcula e já mostra a agenda a partir do 31º dia.",
+"Junto, avisa que, se a paciente quiser vir antes, vira consulta particular (R$ 400), e deixa ela escolher.",
+"Toda consulta pelo plano passa pela pergunta: \"Você consultou com o doutor nos últimos 30 dias?\". Se sim, segue como retorno.",
+"Quando a data vem da paciente, a recepção confere antes do dia.",
+"No particular, o retorno dentro de 30 dias não é cobrado. Depois disso, é nova consulta."],
+ex:"<b>Exemplo:</b> \"Pelo plano, seu retorno pode ser a partir de 12/11. Tenho estes turnos: 1, 2, 3. Se preferir vir antes, o atendimento fica como consulta particular, por R$ 400,00. Aí tenho: 4. Segunda, 02/11, tarde\""},
+{t:"Valores (só particular)",i:[
+"Consulta de ginecologia: R$ 400.",
+"Consulta com coleta de preventivo: R$ 500.",
+"Consulta de pré-natal: R$ 400.",
+"Pré-natal com cardiotocografia: R$ 500.",
+"Só a cardiotocografia: R$ 250.",
+"Pagamento por Pix ou espécie.",
+"Valor de qualquer outro procedimento: ela diz que o senhor informa na consulta."]},
+{t:"Exames",i:[
+"Só marca preventivo ou cardiotocografia se o senhor já pediu em consulta.",
+"Se a paciente pedir exame direto, ela oferece primeiro a consulta.",
+"Exames são marcados nos mesmos dias e turnos das consultas."]},
+{t:"Urgência",i:[
+"Sempre orienta procurar o pronto-socorro em caso de sangramento forte, dor intensa ou gestante sem sentir o bebê mexer.",
+"Depois oferece duas opções: o turno particular mais próximo ou a consulta comum pelo plano no próximo turno.",
+"Não marca urgência pelo plano."]},
+{t:"Autorização do plano",i:[
+"A autorização é feita pela recepção, na chegada.",
+"Se o plano não autorizar, a paciente pode fazer a consulta particular."]},
+{t:"Cancelar e remarcar",i:[
+"Ela mesma cancela ou remarca com mais de 24h de antecedência.",
+"Com menos de 24h, passa para a recepção."]},
+{t:"Confirmação de presença",i:[
+"Às 8h do dia seguinte ao agendamento, ela pede para a paciente confirmar a presença.",
+"Se a consulta for no mesmo dia ou no dia seguinte, não manda, porque não há tempo.",
+"Se a paciente disser que não pode ir, ela oferece remarcar ou cancelar."]},
+{t:"O que ela nunca faz",i:[
+"Não dá orientação médica, não comenta resultado de exame e não fala de remédio. Nesses casos, oferece agendar consulta.",
+"Não analisa áudio, foto ou documento.",
+"Não promete horário exato, porque o atendimento é por ordem de chegada."]},
+{t:"Quando passa para a recepção",i:[
+"Quando a paciente pede para falar com uma pessoa.",
+"Quando envia áudio, foto ou documento.",
+"Quando reclama.",
+"Quando quer cancelar ou remarcar com menos de 24h."]}
+];
+
+
+var API="https://dvsugygrdozpurtybemm.supabase.co/rest/v1/rpc/",APIKEY="sb_publishable_oFWkSuaqM_2g2j49Q-_AcA_ZszpBt4o",TOKEN="oXvB4plnyBtJIBlHLyyL4QCV";
+var LS="aprov_albertino_v2",estado={},timer=null,pendente=false,enviando=false;
+var statusEl=document.getElementById("status");
+function lerLocal(){try{return JSON.parse(localStorage.getItem(LS))||{}}catch(e){return {}}}
+function gravarLocal(){try{localStorage.setItem(LS,JSON.stringify(estado))}catch(e){}}
+function mostrar(t,c){statusEl.textContent=t;statusEl.className="status "+(c||"")}
+function rpc(fn,body){
+  var ctl=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(ctl)ctl.abort()},12000);
+  return fetch(API+fn,{method:"POST",keepalive:true,headers:{"apikey":APIKEY,"Content-Type":"application/json"},body:JSON.stringify(body),signal:ctl?ctl.signal:undefined})
+    .then(function(r){clearTimeout(tm);if(!r.ok)throw new Error(r.status);return r.json()});
+}
+function salvar(){estado._local=Date.now();estado._resumo=montar();gravarLocal();pendente=true;mostrar("Salvando...","");clearTimeout(timer);timer=setTimeout(enviar,700)}
+function enviar(){
+  if(enviando){clearTimeout(timer);timer=setTimeout(enviar,500);return}
+  if(!pendente)return;
+  pendente=false;enviando=true;
+  rpc("salvar_aprovacao",{p_token:TOKEN,p_respostas:estado}).then(function(){
+    enviando=false;if(!pendente)mostrar(estado.concluido?"Respostas enviadas ✓":"Salvo ✓","ok");
+  }).catch(function(){
+    enviando=false;pendente=true;
+    mostrar("Sem internet agora. Suas respostas ficam guardadas aqui e são enviadas quando a conexão voltar.","erro");
+    clearTimeout(timer);timer=setTimeout(enviar,5000);
+  });
+}
+window.addEventListener("online",function(){if(pendente)enviar()});
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden"&&pendente){clearTimeout(timer);enviar()}});
+
+function progresso(){
+  var feitos=BLOCOS.filter(function(_,n){return estado["b"+n]&&estado["b"+n].v}).length;
+  document.getElementById("prog").textContent=feitos+" de "+BLOCOS.length+" blocos respondidos";
+}
+function montar(){
+  var t="Respostas do Dr. Albertino\n\n";
+  BLOCOS.forEach(function(b,n){
+    var s=estado["b"+n]||{};
+    var r=s.v==="ok"?"Aprovado":s.v==="edit"?"Corrigir: "+(s.txt||"(sem texto)"):"Sem resposta";
+    t+=(n+1)+". "+b.t+": "+r+"\n";
+  });
+  t+="\nPerguntas\n";
+  var lab=document.querySelectorAll(".perg label");
+  for(var k=1;k<=lab.length;k++){t+=lab[k-1].textContent+"\nR: "+(estado["p"+k]||"(sem resposta)")+"\n\n"}
+  return t;
+}
+function montarTela(){
+  var box=document.getElementById("cards");
+  BLOCOS.forEach(function(b,n){
+    var s=estado["b"+n]||{};
+    var c=document.createElement("div");c.className="card";
+    c.innerHTML='<h2><span>'+(n+1)+'. '+b.t+'</span><span class="st"></span></h2><ul>'+
+      b.i.map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul>"+(b.ex?'<div class="ex">'+b.ex+"</div>":"")+
+      '<div class="btns"><button class="aprovar">✓ Aprovar</button><button class="editar">✎ Corrigir</button></div>'+
+      '<textarea class="hide" placeholder="Escreva o que muda neste bloco"></textarea>';
+    box.appendChild(c);
+    var ta=c.querySelector("textarea");ta.value=s.txt||"";
+    function pintar(){
+      var st=estado["b"+n]||{};
+      c.classList.toggle("ok",st.v==="ok");c.classList.toggle("edit",st.v==="edit");
+      c.querySelector(".aprovar").classList.toggle("on",st.v==="ok");
+      c.querySelector(".editar").classList.toggle("on",st.v==="edit");
+      ta.classList.toggle("hide",st.v!=="edit");
+      c.querySelector(".st").textContent=st.v==="ok"?"Aprovado":st.v==="edit"?"Corrigir":"";
+      progresso();
+    }
+    c.querySelector(".aprovar").onclick=function(){estado["b"+n]={v:"ok",txt:ta.value};salvar();pintar()};
+    c.querySelector(".editar").onclick=function(){estado["b"+n]={v:"edit",txt:ta.value};salvar();pintar();ta.focus()};
+    ta.oninput=function(){(estado["b"+n]=estado["b"+n]||{v:"edit"}).txt=ta.value;salvar()};
+    pintar();
+  });
+  document.querySelectorAll(".perg input").forEach(function(el,i){
+    var k="p"+(i+1);el.value=estado[k]||"";
+    el.oninput=function(){estado[k]=el.value;salvar()};
+  });
+  progresso();
+  if(estado.concluido)document.getElementById("aviso").textContent="Respostas já enviadas. Se mudar algo, salva sozinho.";
+  document.getElementById("concluir").onclick=function(){
+    estado.concluido=true;salvar();
+    document.getElementById("aviso").textContent="Obrigado, doutor! O Luciano já recebeu suas respostas.";
+  };
+}
+function carregar(){
+  var local=lerLocal();
+  return rpc("ler_aprovacao",{p_token:TOKEN}).then(function(srv){
+    srv=srv||{};
+    if((local._local||0)>(srv._local||0)){estado=local;pendente=true}else{estado=srv}
+  }).catch(function(){estado=local;if(local._local)pendente=true});
+}
+mostrar("Carregando...","");
+carregar().then(function(){
+  montarTela();
+  if(pendente)enviar();else mostrar(estado._local?"Salvo ✓":"As respostas são salvas sozinhas",estado._local?"ok":"");
+});
+</script>
+</body>
+</html>

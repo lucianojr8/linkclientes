@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel de Aprovações</title>
+<style>
+:root{--navy:#0A2F59;--azul:#14B4F2;--cinza:#5A6B80;--fundo:#F4F8FB;--ok:#1E9E62;--and:#C27C0E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:#1d2b3a;font-family:"Garet","Segoe UI",Roboto,Arial,sans-serif}
+header{background:linear-gradient(135deg,#041B33,#0A2F59);color:#fff;padding:24px 16px}
+.wrap{max-width:760px;margin:0 auto}
+.marca{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--azul);font-weight:700}
+h1{font-family:"Telegraf","Segoe UI",Arial,sans-serif;font-weight:300;text-transform:uppercase;font-size:22px;margin:6px 0 0}
+main{padding:16px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(10,47,89,.07);border-left:5px solid var(--and)}
+.card.feito{border-left-color:var(--ok)}
+.topo{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.topo b{color:var(--navy);font-size:17px}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px;background:#FFF6E5;color:var(--and)}
+.feito .tag{background:#E7F6EE;color:var(--ok)}
+.quando{font-size:13px;color:var(--cinza);margin-top:4px}
+pre{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--fundo);border-radius:8px;padding:12px;margin:12px 0 10px}
+button{font:inherit;font-weight:700;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;padding:8px 14px;cursor:pointer}
+.msg{color:var(--cinza);text-align:center;padding:24px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="marca">Atende Certo IA</div><h1>Respostas dos clientes</h1></div></header>
+<main class="wrap">
+  <div style="text-align:right;margin-bottom:12px"><button id="atualizar">Atualizar</button></div>
+  <div id="lista"><div class="msg">Carregando...</div></div>
+</main>
+<script>
+var API="https://dvsugygrdozpurtybemm.supabase.co/rest/v1/rpc/listar_aprovacoes",APIKEY="sb_publishable_oFWkSuaqM_2g2j49Q-_AcA_ZszpBt4o";
+var CHAVE=decodeURIComponent((location.hash||"").slice(1));
+var lista=document.getElementById("lista");
+function msg(t){lista.innerHTML="";var d=document.createElement("div");d.className="msg";d.textContent=t;lista.appendChild(d)}
+function carregar(){
+  if(!CHAVE){msg("Abra pelo link completo do painel.");return}
+  msg("Carregando...");
+  fetch(API,{method:"POST",headers:{"apikey":APIKEY,"Content-Type":"application/json"},body:JSON.stringify({p_chave:CHAVE})})
+  .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+  .then(function(rows){
+    lista.innerHTML="";
+    if(!rows.length){msg("Nenhum cliente cadastrado.");return}
+    rows.forEach(function(r){
+      var resp=r.respostas||{},feito=!!resp.concluido,ini=!!r.atualizado_em;
+      var c=document.createElement("div");c.className="card"+(feito?" feito":"");
+      var topo=document.createElement("div");topo.className="topo";
+      var n=document.createElement("b");n.textContent=r.cliente;
+      var tg=document.createElement("span");tg.className="tag";tg.textContent=feito?"Concluído":ini?"Em andamento":"Não começou";
+      topo.appendChild(n);topo.appendChild(tg);c.appendChild(topo);
+      var q=document.createElement("div");q.className="quando";
+      q.textContent=ini?"Última resposta: "+new Date(r.atualizado_em).toLocaleString("pt-BR"):"Ainda sem respostas";
+      c.appendChild(q);
+      if(resp._resumo){
+        var pre=document.createElement("pre");pre.textContent=resp._resumo;c.appendChild(pre);
+        var b=document.createElement("button");b.textContent="Copiar respostas";
+        b.onclick=function(){if(navigator.clipboard)navigator.clipboard.writeText(resp._resumo).then(function(){b.textContent="Copiado ✓"})};
+        c.appendChild(b);
+      }
+      lista.appendChild(c);
+    });
+  }).catch(function(){msg("Não foi possível carregar. Confira o link ou a internet.")});
+}
+document.getElementById("atualizar").onclick=carregar;
+carregar();
+</script>
+</body>
+</html>
