@@ -448,6 +448,8 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
     <div class="acoes">
       <button type="button" class="forte" id="btnPdf">Baixar recibo em PDF</button>
       <button type="button" id="btnCopiar">Copiar Pix copia e cola</button>
+      <a id="btnFinZap" target="_blank" rel="noopener">Enviar recibo ao financeiro · WhatsApp</a>
+      <a id="btnFinMail">Enviar recibo ao financeiro · e-mail</a>
       <a id="btnZap" target="_blank" rel="noopener">Avisar o Luciano no WhatsApp</a>
     </div>
   </div>
@@ -2777,7 +2779,7 @@ var qrcode = function() {
 <script>
 (function(){
   var API="https://dvsugygrdozpurtybemm.supabase.co/rest/v1/rpc/",APIKEY="sb_publishable_oFWkSuaqM_2g2j49Q-_AcA_ZszpBt4o",TOKEN="c4fd2vHUH58KzIT8tKRf-pKh";
-  var PIX="lucianojr8@gmail.com",ZAP="5591984146292",NUM="PDO-2026-001";
+  var PIX="lucianojr8@gmail.com",ZAP="5591984146292",NUM="PDO-2026-001",LINK="https://gestao.atendecertoia.com.br/proposta-pomme-dor/#recibo";
   function $(i){return document.getElementById(i)}
   function brl(v){return "R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:0,maximumFractionDigits:2})}
   function dataHora(d){return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit",year:"numeric"})+" às "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}
@@ -2813,6 +2815,9 @@ var qrcode = function() {
     $("btnCopiar").onclick=function(){var b=this;if(navigator.clipboard)navigator.clipboard.writeText(cc).then(function(){b.textContent="Copiado ✓"});};
     var txt="Oi Luciano, aprovei a proposta do Grupo Pomme d'Or.\n"+d.itens.map(function(it){return "- "+it.nome+": "+brl(it.valor)}).join("\n")+"\nTotal: "+brl(d.total)+"\nVencimento: "+dataHora(ve)+"\n"+d.nome;
     $("btnZap").href="https://wa.me/"+ZAP+"?text="+encodeURIComponent(txt);
+    var fin="Recibo Nº "+NUM+" · Grupo Pomme d'Or\n"+d.itens.map(function(it){return "- "+it.nome+": "+brl(it.valor)}).join("\n")+"\nTotal: "+brl(d.total)+"\nVencimento: "+dataHora(ve)+"\nAprovado por "+d.nome+" em "+dataHora(ap)+"\n\nPix (e-mail): "+PIX+"\nPix copia e cola:\n"+cc+"\n\nRecibo completo (com QR Code e PDF):\n"+LINK;
+    $("btnFinZap").href="https://wa.me/?text="+encodeURIComponent(fin);
+    $("btnFinMail").href="mailto:?subject="+encodeURIComponent("Recibo "+NUM+" · Atende Certo IA · vence "+dataHora(ve))+"&body="+encodeURIComponent(fin);
   }
   $("btnPdf").onclick=function(){document.body.classList.add("imprimir-recibo");window.print()};
   window.addEventListener("afterprint",function(){document.body.classList.remove("imprimir-recibo")});
@@ -2836,7 +2841,8 @@ var qrcode = function() {
     });
   });
 
-  rpc("ler_aprovacao",{p_token:TOKEN}).then(function(r){if(r&&r.aprovado_em)mostraRecibo(r,false)}).catch(function(){});
+  function abrirSeRecibo(){if(location.hash==="#recibo"){var b=document.querySelector('#abas button[data-t="aprovar"]');if(b)b.click()}}
+  rpc("ler_aprovacao",{p_token:TOKEN}).then(function(r){if(r&&r.aprovado_em)mostraRecibo(r,false)}).catch(function(){}).then(abrirSeRecibo);
 })();
 </script>
 </body>
