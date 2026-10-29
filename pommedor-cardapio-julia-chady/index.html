@@ -113,6 +113,7 @@ footer a{color:var(--suave);text-decoration:none}
   <div class="data">16 · 10 · 2027</div>
   <div class="caps local">Estação das Docas · Belém</div>
   <div class="hora">Cerimônia 15h · Recepção 17h</div>
+  <div class="caps local" id="capaConv" style="margin-top:14px;color:var(--bronze)"></div>
 </header>
 
 <p class="dica" id="etapas">Toque em cada etapa para ver o cardápio e a proposta.</p>
@@ -286,6 +287,7 @@ var ORCAMENTO = {
   h+='<p class="validade">Proposta válida por '+o.validade+'.</p>';
   if(o.exemplo) h+='<p class="validade" style="font-size:12px;margin-top:6px;color:var(--dourado)">Valores ilustrativos, apenas para demonstração do formato.</p>';
   document.getElementById("inv").innerHTML=h;
+  if(o.convidados!=null) document.getElementById("capaConv").textContent=o.convidados+" convidados";
   window.__TOTAL = tot;
 })();
 (function(){
