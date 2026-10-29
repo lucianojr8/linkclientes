@@ -253,14 +253,19 @@ footer a{color:var(--suave);text-decoration:none}
 <script>
 /* ====== DADOS DO ORÇAMENTO (preencher) ====== */
 var ORCAMENTO = {
-  convidados: null,          // ex.: 250
-  valorPorPessoa: null,      // ex.: 320.00
-  extras: [                  // itens cobrados à parte, se houver
-    // { nome: "Taxa de serviço", valor: 0 }
+  exemplo: true,             // true mostra o aviso "valores ilustrativos"
+  convidados: 250,
+  valorPorPessoa: 320.00,
+  extras: [
+    { nome: "Estação de bebidas não alcoólicas", valor: 6250.00 }
   ],
+  entradaPct: 20,
+  parcelasSaldo: 6,
   pagamento: [
-    "Entrada de 20% na assinatura do contrato",
-    "Saldo: a definir"
+    "Entrada de {ENTRADA} (20%) na assinatura do contrato",
+    "Saldo de {SALDO} em até 6 parcelas mensais de {PARCELA}",
+    "Saldo quitado até 30 dias antes do evento",
+    "Pagamento por Pix ou transferência"
   ],
   validade: "7 dias a partir do envio"
 };
@@ -275,8 +280,11 @@ var ORCAMENTO = {
   var tot=sub;
   o.extras.forEach(function(e){h+='<div class="linha"><span>'+e.nome+'</span><span>'+brl(e.valor)+'</span></div>'; if(tot!=null&&e.valor!=null) tot+=e.valor; else tot=null;});
   h+='<div class="linha total"><span>Total</span><span>'+brl(tot)+'</span></div>';
-  h+='<h3 class="caps">Forma de pagamento</h3><ul>'+o.pagamento.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ul>';
+  var ent=tot!=null?tot*o.entradaPct/100:null, sal=tot!=null?tot-ent:null, par=sal!=null?sal/o.parcelasSaldo:null;
+  function f(v){return v==null?"a definir":v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
+  h+='<h3 class="caps">Forma de pagamento</h3><ul>'+o.pagamento.map(function(x){return "<li>"+x.replace("{ENTRADA}",f(ent)).replace("{SALDO}",f(sal)).replace("{PARCELA}",f(par))+"</li>";}).join("")+'</ul>';
   h+='<p class="validade">Proposta válida por '+o.validade+'.</p>';
+  if(o.exemplo) h+='<p class="validade" style="font-size:12px;margin-top:6px;color:var(--dourado)">Valores ilustrativos, apenas para demonstração do formato.</p>';
   document.getElementById("inv").innerHTML=h;
   window.__TOTAL = tot;
 })();
