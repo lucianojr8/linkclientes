@@ -188,7 +188,6 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 <style>
 .status{display:inline-block;font-family:var(--tit);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:12px;margin-top:8px}
 .status.and{background:#FFF6E5;color:#a8660a}
-.status.ok{background:#E7F6EE;color:#1E7A4C}
 .status.prox{background:#e8f0f7;color:var(--cinza)}
 .fase-st{background:#fff;border-radius:6px;padding:16px;box-shadow:0 4px 16px rgba(10,47,89,.07);margin:12px 0;display:flex;gap:14px;align-items:flex-start}
 .fase-st b{font-family:var(--tit);font-weight:700;font-size:17px;display:block}
@@ -197,9 +196,9 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 .sessao .cab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .sessao .cab b{font-family:var(--tit);font-weight:700;font-size:17px}
 .sessao .cab span{font-family:var(--tit);font-weight:700;font-size:15px;color:var(--azul-m)}
-.sessao .tit{color:var(--cinza);font-size:14px;margin:2px 0 6px}
-.sessao ul.check li{font-size:15px;padding-top:6px;padding-bottom:6px}
-.saldo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.sessao .tit{color:var(--cinza);font-size:14px;margin:2px 0 10px}
+.sessao ul.check li{font-size:15px;padding-top:5px;padding-bottom:5px}
+.saldo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 6px}
 .saldo div{background:var(--navy);color:#fff;padding:14px 10px;text-align:center}
 .saldo div.az{background:var(--azul)}
 .saldo b{display:block;font-family:var(--tit);font-weight:700;font-size:26px;line-height:1.1}
@@ -225,7 +224,6 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 <nav class="abas" aria-label="Seções do registro">
   <div class="wrap" id="abas">
     <button data-t="visao" class="on">Visão geral</button>
-    <button data-t="horas">Como funciona</button>
     <button data-t="caminho">Caminho</button>
     <button data-t="fases">Fases</button>
     <button data-t="registro">Registro</button>
@@ -240,81 +238,58 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 <section class="tela on" id="visao">
   <div class="etiqueta"><span>Projeto aprovado</span></div>
   <h2>O que foi <b>combinado</b></h2>
-  <div class="h2sub">Organizar o Grupo Pomme d'Or com IA, em etapas, contratado por crédito de horas</div>
+  <div class="h2sub">Organizar o grupo com IA, em etapas, por crédito de horas</div>
 
   <div class="valor navy">
     <div class="rot">Hora da Atende Certo IA</div>
     <div class="big">R$ 600</div>
-    <div class="obs">Para o Grupo Pomme d'Or: <b>R$ 300</b> no pacote de 15h e <b>R$ 350</b> na hora avulsa.</div>
+    <div class="obs">Para o Grupo Pomme d'Or: <b>R$ 300</b> no pacote de 15h (R$ 4.500) e <b>R$ 350</b> na avulsa. Valor reduzido pelo volume de demanda do grupo.</div>
   </div>
-  <p>A hora da Atende Certo IA é de R$ 600. Para o Grupo Pomme d'Or, o valor ficou bem abaixo disso porque o grupo tem muita demanda, em várias frentes, e vai usar bastante hora ao longo do projeto.</p>
 
   <div class="bloco-escuro">
-    <h3>Um investimento que dá resultado desde o primeiro dia</h3>
+    <h3>Resultado desde o primeiro dia</h3>
     <ul class="check">
-      <li><b>Não é um salário fixo.</b> Você paga pelas horas que usa, no ritmo da empresa.</li>
-      <li><b>Não é um pacote fechado</b> que só mostra resultado no final.</li>
-      <li><b>Cada hora vira algo pronto e em uso.</b> O que é feito numa sessão já fica disponível no mesmo dia.</li>
-      <li><b>A empresa comprova o valor na prática</b> e decide o próximo passo vendo o que funciona.</li>
+      <li><b>Não é salário fixo nem pacote fechado.</b> Você paga as horas que usa.</li>
+      <li><b>Cada hora vira algo pronto</b>, disponível no mesmo dia.</li>
+      <li><b>A empresa vê o valor na prática</b> e decide o ritmo.</li>
     </ul>
   </div>
-  <div class="prox"><span></span><button data-ir="horas"><span>Como funciona →</span></button></div>
-</section>
 
-<!-- COMO FUNCIONA -->
-<section class="tela" id="horas">
-  <div class="etiqueta"><span>Como funciona</span></div>
-  <h2>Crédito <b>de horas</b></h2>
-
-  <table class="horas">
-    <tr><th>Formato</th><th style="text-align:right">Valor por hora</th></tr>
-    <tr><td>Hora de tabela</td><td><span class="riscado">R$ 600</span></td></tr>
-    <tr><td>Hora avulsa</td><td>R$ 350</td></tr>
-    <tr class="dest"><td>Pacote de 15h (R$ 4.500)</td><td>R$ 300</td></tr>
-  </table>
-
-  <ol class="passos">
-    <li><b>A empresa adquire o pacote de 15h</b> e as horas ficam disponíveis para os pedidos.</li>
-    <li><b>A cada pedido, damos a estimativa antes.</b> Só começa com a aprovação.</li>
-    <li><b>Cobrança só por hora cheia.</b> Os minutos que sobram ficam somando até fechar 1h.</li>
-    <li><b>A cada sessão, a empresa recebe o registro</b> do que foi feito e das horas usadas.</li>
-    <li><b>Acabou o crédito,</b> renova o pacote de 15h ou segue com horas avulsas a R$ 350.</li>
-  </ol>
-  <div class="contorno"><strong>Não incluso:</strong> os assentos do Claude Team, pagos pela empresa direto à Anthropic (mínimo de 5 usuários).</div>
-  <div class="prox"><button class="vazio" data-ir="visao"><span>← Visão geral</span></button><button data-ir="caminho"><span>Caminho →</span></button></div>
+  <h3>Como funcionam as horas</h3>
+  <ul class="check">
+    <li><b>Estimativa antes de cada pedido.</b> Só começa com a aprovação.</li>
+    <li><b>Cobrança por hora cheia.</b> Os minutos somam até fechar 1h.</li>
+    <li><b>Registro a cada sessão</b> do que foi feito e das horas usadas.</li>
+    <li><b>Acabou o crédito,</b> renova o pacote ou segue na avulsa.</li>
+  </ul>
+  <p class="muted">Assentos do Claude Team pagos pela empresa direto à Anthropic (mínimo de 5).</p>
+  <div class="prox"><span></span><button data-ir="caminho"><span>Caminho →</span></button></div>
 </section>
 
 <!-- CAMINHO -->
 <section class="tela" id="caminho">
   <div class="etiqueta"><span>Nossa sugestão</span></div>
   <h2>O melhor <b>caminho</b></h2>
-  <div class="h2sub">A decisão é da empresa. Aqui vai a nossa recomendação.</div>
-
-  <h3>Começar pela base</h3>
+  <div class="h2sub">A decisão é da empresa. Esta é a nossa recomendação.</div>
   <ul class="check">
-    <li><b>Estruturar o grupo por todos os lados</b> com projetos pequenos e médios.</li>
-    <li><b>Um projeto grande logo no início</b> consome as 15h numa coisa só e deixa o resto da empresa sem base.</li>
-    <li><b>O que é complexo fica para depois.</b> Com a base pronta, os projetos maiores saem mais rápidos e mais certos.</li>
+    <li><b>Começar pela base</b>, com projetos pequenos e médios em todas as áreas.</li>
+    <li><b>Deixar o complexo para depois.</b> Um projeto grande no início consome as 15h numa coisa só.</li>
   </ul>
-
-  <h3>Ritmo sugerido</h3>
   <div class="ritmo">
-    <div><b>Mês 1 · estruturar rápido</b><span>Mais horas no início. Acabando o primeiro pacote, renovar logo e seguir acompanhando a evolução.</span></div>
-    <div><b>Mês 2 em diante · ajustar</b><span>As horas vão diminuindo conforme a estrutura fica de pé.</span></div>
-    <div><b>Projeto completo · 3 a 6 meses</b><span>Conforme a demanda e o que a empresa quiser priorizar.</span></div>
+    <div><b>Mês 1</b><span>Mais horas para estruturar rápido. Acabou o pacote, renovar logo.</span></div>
+    <div><b>Mês 2 em diante</b><span>As horas diminuem conforme a estrutura fica de pé.</span></div>
+    <div><b>Total: 3 a 6 meses</b><span>Conforme a demanda do grupo.</span></div>
   </div>
-  <div class="contorno">Avisamos quando um pedido pode esperar ou quando a própria equipe consegue fazer, com a dica de como fazer.</div>
-  <div class="prox"><button class="vazio" data-ir="horas"><span>← Como funciona</span></button><button data-ir="fases"><span>Fases →</span></button></div>
+  <div class="prox"><button class="vazio" data-ir="visao"><span>← Visão geral</span></button><button data-ir="fases"><span>Fases →</span></button></div>
 </section>
 
 <!-- FASES -->
 <section class="tela" id="fases">
   <div class="etiqueta"><span>Fases e metas</span></div>
   <h2>Onde <b>estamos</b></h2>
-
-  <div class="fase-st"><div class="num"><span>1</span></div><div><b>Ficha Técnica dos pratos</b><p>Meta: assistente testado com 3 pratos reais, junto com a nutricionista.</p><span class="status and">Formato desenhado</span></div></div>
-  <div class="fase-st"><div class="num"><span>2</span></div><div><b>Ambiente Inteligente no Claude Team</b><p>Meta: 6 projetos com acesso separado (Base e Marca, Diretoria, RH, Eventos, Cozinha, Compras e Financeiro), base do grupo, kit da marca, cardápios, modelos e orçamento por voz.</p><span class="status and">Em andamento</span></div></div>
-  <div class="fase-st"><div class="num"><span>3</span></div><div><b>Projetos por área</b><p>Compras e contas a pagar, RH, estoque e relatórios, na ordem que a empresa escolher.</p><span class="status prox">Depois da base</span></div></div>
+  <div class="fase-st"><div class="num"><span>1</span></div><div><b>Ficha Técnica dos pratos</b><p>Meta: testada com 3 pratos reais, junto com a nutricionista.</p><span class="status and">Formato desenhado</span></div></div>
+  <div class="fase-st"><div class="num"><span>2</span></div><div><b>Ambiente Inteligente no Claude Team</b><p>Meta: 6 projetos por área funcionando com a base do grupo.</p><span class="status and">Em andamento</span></div></div>
+  <div class="fase-st"><div class="num"><span>3</span></div><div><b>Projetos por área</b><p>Compras, RH, estoque e relatórios, na ordem da empresa.</p><span class="status prox">Depois da base</span></div></div>
   <div class="prox"><button class="vazio" data-ir="caminho"><span>← Caminho</span></button><button data-ir="registro"><span>Registro →</span></button></div>
 </section>
 
@@ -322,7 +297,6 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 <section class="tela" id="registro">
   <div class="etiqueta"><span>Registro de horas</span></div>
   <h2>O que já <b>foi feito</b></h2>
-
   <div class="saldo">
     <div class="az"><b>15h</b><small>Pacote</small></div>
     <div><b>7h</b><small>Usadas</small></div>
@@ -331,31 +305,25 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
   <p class="muted">Mais 10 minutos somando para a próxima hora.</p>
 
   <div class="sessao">
-    <div class="cab"><b>28/10/2026</b><span>3h <small style="font-weight:400;color:var(--cinza)">(de 4h trabalhadas)</small></span></div>
+    <div class="cab"><b>28/10</b><span>3h <small style="font-weight:400;color:var(--cinza)">(de 4h trabalhadas)</small></span></div>
     <div class="tit">Organização, conteúdo e análise</div>
     <ul class="check">
-      <li><b>Projetos do Team:</b> instruções novas para os 6 projetos, com o mesmo bloco de navegação e 6 regras de uso.</li>
-      <li><b>Base do grupo (Skill pomme-dor-base):</b> atualizada com empresa, cardápio e degustação, informações internas, equipe atual (Mara no RH, Ellen na nutrição), regras das casas de recepção e encomendas.</li>
-      <li><b>Análise dos documentos:</b> escala do CD (17 funcionários em 3 grupos, com pontos a conferir), orçamentos padrão 2026 e 2027, tabela de encomendas, diário de pagamentos, plano de contas e contratos de 2026.</li>
-      <li><b>Empresa de cada unidade:</b> R3X Food, LML, R L da Silva, MM10X e Martins Comércio. Em aberto: Pátio Belém (aparece com duas empresas) e a unidade "Café".</li>
-      <li><b>Conferência da Base:</b> 6 divergências encontradas (grafia do nome, capacidade da Fábrica 242, situação do Generalíssimo, equipe do RH, nutricionista e modelo comercial).</li>
-      <li><b>Nova ficha técnica:</b> formato desenhado para a Ellen. A ficha nasce junto com o prato, por texto ou voz, com custo e preço pelo CMV.</li>
+      <li>Instruções novas nos 6 projetos do Team</li>
+      <li>Base do grupo atualizada (empresa, cardápio, equipe, regras e encomendas)</li>
+      <li>Análise da escala do CD, orçamentos, encomendas, financeiro e contratos</li>
+      <li>Empresa de cada unidade levantada</li>
+      <li>Conferência da Base: 6 pontos a ajustar</li>
+      <li>Novo formato da ficha técnica, com custo e preço pelo CMV</li>
     </ul>
   </div>
-
   <div class="sessao">
-    <div class="cab"><b>27/10/2026</b><span>2h20</span></div>
-    <div class="tit">Montagem e ajustes do Claude Team</div>
-  </div>
-
-  <div class="sessao">
-    <div class="cab"><b>27/10/2026</b><span>1h50</span></div>
+    <div class="cab"><b>27/10</b><span>1h50 + 2h20</span></div>
     <div class="tit">Início da implantação</div>
     <ul class="check">
-      <li><b>Acessos do Claude Team, criação dos projetos por área, arquivos e kit da marca.</b></li>
+      <li>Acessos, criação dos projetos por área, arquivos e kit da marca</li>
+      <li>Montagem e ajustes do Claude Team</li>
     </ul>
   </div>
-  <p class="muted">27/10: 1h50 + 2h20 = 4h cobradas e 10 min somando. 28/10: 3h cobradas.</p>
   <div class="prox"><button class="vazio" data-ir="fases"><span>← Fases</span></button><button data-ir="proximos"><span>Próximos passos →</span></button></div>
 </section>
 
@@ -363,20 +331,14 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 <section class="tela" id="proximos">
   <div class="etiqueta"><span>Próximos passos</span></div>
   <h2>O que vem <b>agora</b></h2>
-
-  <h3>Atende Certo IA</h3>
   <ol class="passos">
     <li><b>Conferir as permissões</b> de cada projeto.</li>
-    <li><b>Enviar à Tati as 19 perguntas</b> e o retorno dos contratos.</li>
     <li><b>Visitar os setores.</b></li>
-    <li><b>Fazer os testes</b> nos projetos Eventos, RH e Diretoria.</li>
+    <li><b>Testar</b> os projetos Eventos, RH e Diretoria.</li>
   </ol>
-
-  <h3>Grupo Pomme d'Or</h3>
+  <h3>Da equipe Pomme d'Or</h3>
   <ul class="check">
-    <li><b>Pagamento do primeiro pacote</b> até sexta-feira, 30/10 (recibo PDO-2026-001).</li>
-    <li><b>Responder as 19 perguntas</b>, incluindo o Pátio Belém, a unidade "Café" e as 6 divergências da Base.</li>
-    <li><b>Enviar o preço real de compra dos ingredientes</b> para a ficha técnica.</li>
+    <li><b>Preço real de compra dos ingredientes</b>, para a ficha técnica.</li>
   </ul>
   <div class="prox"><button class="vazio" data-ir="registro"><span>← Registro</span></button><button data-ir="tati"><span>À parte →</span></button></div>
 </section>
@@ -385,15 +347,15 @@ footer b{color:#fff;font-family:var(--tit);letter-spacing:.1em}
 <section class="tela" id="tati">
   <div class="etiqueta"><span>À parte · conta pessoal</span></div>
   <h2>Pacote pessoal <b>Tati</b></h2>
-  <div class="h2sub">Separado do projeto da empresa, com cobrança à parte</div>
+  <div class="h2sub">Separado do projeto da empresa</div>
   <div class="valor">
     <div class="rot">Pacote pessoal</div>
     <div class="big">R$ 1.000</div>
     <div class="obs">Valor de tabela <span class="riscado">R$ 2.100</span></div>
   </div>
   <ul class="check">
-    <li><b>Meu Painel Financeiro:</b> aplicativo financeiro pessoal, que abre por link.</li>
-    <li><b>2h de organização do Claude pessoal:</b> projetos, conversas e uso no dia a dia.</li>
+    <li><b>Meu Painel Financeiro</b>, aplicativo pessoal por link.</li>
+    <li><b>2h de organização</b> do Claude pessoal.</li>
   </ul>
   <div class="prox"><button class="vazio" data-ir="proximos"><span>← Próximos passos</span></button><button data-ir="visao"><span>Voltar ao início</span></button></div>
 </section>
