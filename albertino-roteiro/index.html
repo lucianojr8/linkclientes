@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistente do Dr. Albertino</title>
+<style>
+:root{--navy:#0A2F59;--azul:#14B4F2;--azulm:#0B97D5;--cinza:#5A6B80;--fundo:#F4F8FB;--ok:#1E9E62;--ed:#C27C0E;--chat:#E6EEF5;--pac:#D7F0FC}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fundo);color:#1d2b3a;font-family:"Garet","Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+header{background:linear-gradient(135deg,#041B33,#0A2F59);color:#fff;padding:22px 16px 38px;clip-path:polygon(0 0,100% 0,100% 85%,0 100%)}
+.wrap{max-width:640px;margin:0 auto}
+.marca{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--azul);font-weight:700}
+h1{font-family:"Telegraf","Segoe UI",Arial,sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:1px;font-size:22px;margin:6px 0 4px}
+header p{margin:0;color:#cfe3f5;font-size:14px}
+main{padding:0 16px 90px}
+.intro{background:#fff;border:1.5px solid var(--azul);border-radius:12px;padding:14px 16px;margin:-18px 0 16px;position:relative;font-size:15px}
+.prog{font-size:14px;color:var(--cinza);margin:0 0 10px;font-weight:700}
+.grupo{font-family:"Telegraf","Segoe UI",Arial,sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--azulm);margin:18px 0 8px;font-weight:700}
+.item{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;background:#fff;border:0;border-left:5px solid var(--navy);border-radius:10px;padding:13px 14px;margin-bottom:8px;box-shadow:0 2px 6px rgba(10,47,89,.07);font:inherit;cursor:pointer;color:#1d2b3a}
+.item.ok{border-left-color:var(--ok)}.item.edit{border-left-color:var(--ed)}
+.item b{display:block;font-size:15px;color:var(--navy)}
+.item small{display:block;color:var(--cinza);font-size:13px}
+.chip{font-size:12px;font-weight:700;white-space:nowrap;color:var(--cinza)}
+.ok .chip{color:var(--ok)}.edit .chip{color:var(--ed)}
+.topo{display:flex;align-items:center;gap:8px;margin:-14px 0 12px;position:relative}
+.voltar{background:#fff;border:1.5px solid var(--navy);color:var(--navy);border-radius:20px;padding:7px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.cont{font-size:13px;color:var(--cinza);margin-left:auto}
+h2{font-family:"Telegraf","Segoe UI",Arial,sans-serif;font-size:19px;color:var(--navy);margin:4px 0 2px}
+.sub{color:var(--cinza);font-size:14px;margin:0 0 12px}
+.chat{background:var(--chat);border-radius:14px;padding:14px 10px;display:flex;flex-direction:column;gap:8px}
+.b{max-width:86%;padding:9px 12px;border-radius:12px;font-size:15px;white-space:pre-line;box-shadow:0 1px 1px rgba(0,0,0,.06)}
+.b .q{display:block;font-size:11px;font-weight:700;margin-bottom:2px;letter-spacing:.3px}
+.a{background:#fff;align-self:flex-start;border-top-left-radius:3px}
+.a .q{color:var(--azulm)}
+.p{background:var(--pac);align-self:flex-end;border-top-right-radius:3px}
+.p .q{color:var(--navy);text-align:right}
+.n{align-self:center;background:#FFF8E6;border:1px dashed #E3B54D;color:#6b5418;font-size:13px;padding:7px 12px;border-radius:10px;max-width:94%;text-align:center}
+.fb{background:#fff;border-radius:12px;padding:14px;margin-top:14px;box-shadow:0 2px 8px rgba(10,47,89,.07)}
+.fb p{margin:0 0 10px;font-weight:700;color:var(--navy);font-size:15px}
+.btns{display:flex;gap:8px}
+.btns button{flex:1;font:inherit;font-size:15px;font-weight:700;border-radius:8px;padding:11px 10px;cursor:pointer;border:1.5px solid var(--navy);background:#fff;color:var(--navy)}
+.btns .bok.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.btns .bed.on{background:var(--ed);border-color:var(--ed);color:#fff}
+textarea{width:100%;font:inherit;font-size:15px;border:1.5px solid #c9d6e3;border-radius:8px;padding:10px;margin-top:10px;min-height:90px;resize:vertical}
+.hide{display:none}
+.nav{display:flex;gap:8px;margin-top:14px}
+.nav button{flex:1;font:inherit;font-size:15px;font-weight:700;border-radius:8px;padding:12px;cursor:pointer;border:0;background:var(--azul);color:#fff;box-shadow:0 4px 12px rgba(20,180,242,.3)}
+.nav .sec{background:#fff;color:var(--navy);border:1.5px solid var(--navy);box-shadow:none}
+.final{background:linear-gradient(135deg,#041B33,#0A2F59);color:#fff;border-radius:12px;padding:16px;margin-top:20px}
+.final p{margin:0 0 8px;color:#cfe3f5;font-size:14px}
+.final textarea{border:0}
+.final button{width:100%;margin-top:10px;font:inherit;font-weight:700;font-size:15px;border:0;border-radius:8px;padding:12px;background:var(--azul);color:#fff;cursor:pointer}
+.aviso{font-size:13px;color:#9fd8f5;margin-top:8px;min-height:16px}
+.status{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:13px;padding:8px 14px;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.2);max-width:calc(100% - 32px);text-align:center;z-index:9}
+.status.ok{background:var(--ok)}.status.erro{background:#B4441E}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="marca">Atende Certo IA</div>
+  <h1>Assistente do Dr. Albertino</h1>
+  <p>Como ela conversa com suas pacientes no WhatsApp</p>
+</div></header>
+<main class="wrap" id="tela"></main>
+<div class="status" id="status"></div>
+
+<script>
+var S=[
+{id:"plano",g:"Marcar consulta",t:"Consulta pelo plano",d:"Paciente de plano marcando uma consulta de ginecologia de rotina.",c:[
+["p","Oi, boa tarde"],
+["a","Olá! Aqui é a assistente do consultório do Dr. Albertino Bastos 😊 Como posso te ajudar?"],
+["p","Quero marcar uma consulta"],
+["n","Ela já disse que é consulta, então a assistente não pergunta de novo."],
+["a","É de ginecologia ou de pré-natal?\n1. Ginecologia\n2. Pré-natal"],
+["p","1"],
+["a","É uma consulta de rotina ou de urgência?\n1. Rotina\n2. Urgência"],
+["p","Rotina"],
+["a","É o seu check-up anual?"],
+["p","Sim"],
+["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
+["p","Plano, Unimed"],
+["n","Ela já disse qual é o plano, então a assistente não pergunta."],
+["a","Você consultou com o doutor nos últimos 30 dias?"],
+["p","Não"],
+["a","Me passa o nome e sobrenome da paciente?"],
+["p","Ana Souza"],
+["a","Tenho estes turnos disponíveis. Qual fica melhor pra você?\n1. Segunda, 09/11, tarde\n2. Terça, 10/11, manhã\n3. Quarta, 11/11, tarde"],
+["p","2"],
+["a","Agendado para terça-feira, 10/11, turno da manhã! O Dr. Albertino vai te receber com todo cuidado. O atendimento é por ordem de chegada, a partir das 8h, com média de 15 minutos por paciente. Endereço: Hospital Porto Dias, Travessa Mauriti, 3050, Bloco B, térreo, consultório 5. Traga um documento com foto."]
+]},
+{id:"plano-part",g:"Marcar consulta",t:"Plano, quando o particular tem data antes",d:"Os turnos do plano mais próximos estão cheios, e o particular tem vaga antes.",c:[
+["n","Começa igual à consulta pelo plano. Muda só a lista de turnos."],
+["a","Tenho estes turnos disponíveis. Qual fica melhor pra você?\n1. Quinta, 12/11, manhã\n2. Quinta, 12/11, tarde\n3. Segunda, 16/11, tarde\n4. Segunda, 09/11, manhã (particular)"],
+["n","A data do particular aparece só como última opção, sem comentário. A paciente nunca ouve que o plano demora mais."],
+["p","1"],
+["a","Agendado para quinta-feira, 12/11, turno da manhã! O Dr. Albertino vai te receber com todo cuidado. (segue com endereço e documento)"],
+["n","Se ela escolhe o plano, a assistente não oferece o particular de novo na mesma conversa."]
+]},
+{id:"particular",g:"Marcar consulta",t:"Consulta particular",d:"Paciente que já chega pedindo particular.",c:[
+["p","Quero marcar uma consulta particular de ginecologia"],
+["a","É uma consulta de rotina ou de urgência?\n1. Rotina\n2. Urgência"],
+["p","Rotina"],
+["a","É o seu check-up anual?"],
+["p","Não"],
+["a","A consulta particular é R$ 400,00, com pagamento por Pix ou em espécie."],
+["a","Me passa o nome e sobrenome da paciente?"],
+["p","Carla Mendes"],
+["a","Tenho estes turnos disponíveis. Qual fica melhor pra você?\n1. Segunda, 09/11, manhã\n2. Segunda, 09/11, tarde\n3. Terça, 10/11, manhã"],
+["n","No particular, a assistente usa todos os seus turnos, inclusive a sexta de manhã."],
+["p","1"],
+["a","Agendado para segunda-feira, 09/11, turno da manhã! (segue com endereço e documento)"]
+]},
+{id:"prenatal",g:"Marcar consulta",t:"Pré-natal",d:"Gestante pelo plano que já consultou há menos de 31 dias.",c:[
+["p","Oi, estou grávida e quero marcar o pré-natal"],
+["a","Sua gestação foi classificada como de alto risco?"],
+["p","Não"],
+["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
+["p","Plano"],
+["a","Qual é o seu plano?\n1. Unimed\n2. GEAP Saúde\n3. TRT8 - PAS\n4. CASSI\n5. Amil\n6. Saúde Petrobras\n7. Porto Dias Saúde\n8. Bradesco Saúde\n9. Medservice\n10. Outro"],
+["p","Bradesco"],
+["a","Você consultou com o doutor nos últimos 30 dias?"],
+["p","Sim, dia 20/10"],
+["n","No pré-natal pelo plano também vale o intervalo de 31 dias."],
+["a","Pelo plano, seu retorno pode ser a partir de 20/11. Tenho estes turnos:\n1. Segunda, 23/11, tarde\n2. Terça, 24/11, manhã\n3. Quarta, 25/11, tarde\nSe preferir vir antes, o atendimento fica como consulta particular, por R$ 400,00. Aí tenho:\n4. Segunda, 09/11, manhã"]
+]},
+{id:"ret-plano",g:"Retorno",t:"Retorno pelo plano, no prazo",d:"Já passaram 31 dias ou mais desde a última consulta.",c:[
+["p","Quero marcar meu retorno"],
+["a","O retorno vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
+["p","Plano"],
+["a","Qual foi a data da sua última consulta com o doutor?"],
+["n","A assistente pergunta a data antes de falar do prazo. Assim a paciente não sabe qual data \"dá certo\"."],
+["p","25/09"],
+["a","Me passa o nome e sobrenome da paciente?"],
+["p","Júlia Lima"],
+["a","Certo! Tenho estes turnos disponíveis:\n1. Segunda, 09/11, tarde\n2. Terça, 10/11, manhã\n3. Quarta, 11/11, tarde"],
+["n","Quando a data vem da paciente, a Lídia confere no sistema do hospital antes do dia."]
+]},
+{id:"ret-antes",g:"Retorno",t:"Retorno pelo plano, antes de 31 dias",d:"A paciente quer voltar antes do prazo do plano.",c:[
+["p","Quero marcar meu retorno pelo plano"],
+["a","Qual foi a data da sua última consulta com o doutor?"],
+["p","28/10"],
+["a","Pelo plano, seu retorno pode ser a partir de 28/11. Tenho estes turnos:\n1. Segunda, 30/11, tarde\n2. Terça, 01/12, manhã\n3. Quarta, 02/12, tarde\nSe preferir vir antes, o atendimento fica como consulta particular, por R$ 400,00. Aí tenho:\n4. Segunda, 09/11, manhã"],
+["n","A paciente escolhe. A assistente nunca marca retorno pelo plano antes de 31 dias."],
+["p","4"],
+["a","Agendado para segunda-feira, 09/11, turno da manhã! (segue com endereço e documento)"]
+]},
+{id:"ret-part",g:"Retorno",t:"Retorno particular",d:"Paciente que consultou no particular.",c:[
+["p","Quero marcar o retorno, foi particular"],
+["a","Qual foi a data da sua última consulta com o doutor?"],
+["p","28/10"],
+["a","Como está dentro de 30 dias da consulta, o retorno não é cobrado. Tenho estes turnos:\n1. Segunda, 09/11, manhã\n2. Segunda, 09/11, tarde\n3. Terça, 10/11, manhã"],
+["n","Se já tiver passado de 30 dias, ela avisa: \"Como já passou de 30 dias da consulta, o atendimento fica como nova consulta, por R$ 400,00.\""]
+]},
+{id:"fora",g:"Situações especiais",t:"Plano que o senhor não atende",d:"A paciente tem um plano fora da sua lista.",c:[
+["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
+["p","Plano, SulAmérica"],
+["a","O Dr. Albertino atende pelos planos Unimed, GEAP Saúde, TRT8 - PAS, CASSI, Amil, Saúde Petrobras, Porto Dias Saúde, Bradesco Saúde e Medservice. Com o seu plano, o atendimento fica como particular, por R$ 400,00. Quer ver os turnos disponíveis?"],
+["p","Quero"],
+["n","Segue como consulta particular."]
+]},
+{id:"urgencia",g:"Situações especiais",t:"Urgência",d:"A paciente diz que é urgente.",c:[
+["p","Preciso de uma consulta urgente, estou com muita dor"],
+["a","Se houver sangramento forte, dor intensa ou, na gestação, se você não estiver sentindo o bebê mexer, procure o pronto-socorro agora."],
+["n","Esse aviso vai sempre primeiro, para proteger a paciente e o senhor."],
+["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
+["p","Plano"],
+["a","Pra ser atendida o quanto antes, tenho estas opções:\n1. Particular, segunda, 09/11, manhã, R$ 400,00\n2. Pelo plano, segunda, 09/11, tarde"],
+["n","Ela não marca \"urgência\" pelo plano. Pelo plano, vira consulta comum no próximo turno."]
+]},
+{id:"preventivo",g:"Situações especiais",t:"Preventivo",d:"A paciente pede para fazer o preventivo.",c:[
+["p","Queria fazer o preventivo"],
+["a","O preventivo é coletado durante a consulta. No particular, a consulta com coleta é R$ 500,00. Pelo plano, a coleta é R$ 150,00, à parte. Quer agendar a consulta?"],
+["p","Quero, pelo plano"],
+["n","Segue como consulta pelo plano."]
+]},
+{id:"cardio",g:"Situações especiais",t:"Cardiotocografia",d:"Exame de vitalidade fetal.",c:[
+["n","Quando a paciente ainda não passou em consulta:"],
+["p","Quero marcar a cardiotocografia"],
+["a","A cardiotocografia é feita depois da consulta, quando o doutor avalia a necessidade. Quer que eu agende a consulta?"],
+["n","Quando o senhor já pediu o exame:"],
+["p","O doutor pediu a cardiotocografia na consulta"],
+["a","Certo! A cardiotocografia é feita nos mesmos dias e turnos das consultas."],
+["n","Segue com plano ou particular, nome e turnos. No particular, só o exame custa R$ 250,00."]
+]},
+{id:"faltou",g:"Situações especiais",t:"Paciente que faltou antes",d:"A paciente faltou ou cancelou o último agendamento.",c:[
+["n","Depois de pegar o nome, antes de mostrar a agenda:"],
+["a","Vi aqui que no seu último agendamento houve uma falta. Se não puder vir, é só avisar com 24h de antecedência, assim a vaga fica pra outra paciente. Tenho estes turnos disponíveis:\n1. Segunda, 09/11, tarde\n2. Terça, 10/11, manhã\n3. Quarta, 11/11, tarde"],
+["n","O lembrete é feito uma vez só, com gentileza."]
+]},
+{id:"confirma",g:"Depois de marcar",t:"Confirmação de presença",d:"Mensagem automática às 8h do dia seguinte ao agendamento.",c:[
+["a","Bom dia! Passando pra lembrar da sua consulta com o Dr. Albertino Bastos. Você confirma sua presença?\n1. Confirmo\n2. Preciso remarcar"],
+["n","Junto vai uma imagem de confirmação. Se a consulta for no mesmo dia ou no dia seguinte ao agendamento, essa mensagem não é enviada."],
+["p","1"],
+["a","Presença confirmada! Até lá."],
+["n","Se ela responder \"2\", a assistente mostra novos turnos para remarcar."]
+]},
+{id:"cancelar",g:"Depois de marcar",t:"Cancelar ou remarcar",d:"Com mais e com menos de 24h de antecedência.",c:[
+["p","Preciso remarcar minha consulta"],
+["n","A assistente confere se existe o agendamento. Faltando mais de 24h:"],
+["a","Claro! Tenho estes turnos disponíveis:\n1. Quarta, 11/11, tarde\n2. Quinta, 12/11, manhã\n3. Quinta, 12/11, tarde"],
+["n","Faltando menos de 24h:"],
+["a","Vou passar sua conversa para a Lídia, da recepção, te ajudar com isso."]
+]},
+{id:"duvidas",g:"Dúvidas e recepção",t:"Dúvidas das pacientes",d:"Respostas para as perguntas mais comuns.",c:[
+["p","Onde fica o consultório?"],
+["a","Hospital Porto Dias, Travessa Mauriti, 3050, Bloco B, térreo, consultório 5."],
+["p","Quais planos vocês atendem?"],
+["a","Unimed, GEAP Saúde, TRT8 - PAS, CASSI, Amil, Saúde Petrobras, Porto Dias Saúde, Bradesco Saúde e Medservice. A autorização é feita pela recepção, na chegada. Se o plano não autorizar, você pode fazer a consulta particular."],
+["p","Quanto custa?"],
+["a","Consulta de ginecologia: R$ 400,00. Consulta com coleta de preventivo: R$ 500,00. Consulta de pré-natal: R$ 400,00. Pré-natal com cardiotocografia: R$ 500,00. Só a cardiotocografia: R$ 250,00. Coleta do preventivo durante a consulta pelo plano: R$ 150,00. Pagamento por Pix ou em espécie."],
+["p","Quanto custa para colocar DIU?"],
+["a","O valor de procedimentos é passado pelo doutor durante a consulta. Quer que eu agende?"],
+["p","Meu exame deu alterado, é grave?"],
+["a","Isso precisa ser avaliado pelo doutor em consulta. Quer que eu agende?"],
+["n","A assistente nunca dá orientação médica, nunca comenta resultado de exame e nunca fala de remédio."]
+]},
+{id:"lidia",g:"Dúvidas e recepção",t:"Quando passa para a Lídia",d:"Casos em que a conversa vai para a recepção.",c:[
+["p","Quero falar com uma pessoa"],
+["a","Claro! Vou passar sua conversa para a Lídia, da recepção."],
+["p","(envia um áudio ou uma foto)"],
+["a","Recebi! Vou passar para a Lídia, da recepção, verificar."],
+["p","Fui muito mal atendida da última vez"],
+["a","Entendi. Vou passar para a Lídia, da recepção, te atender."],
+["n","Fora do horário (2ª a 6ª, 8h às 12h e 14h às 18h), ela avisa que a Lídia vai ver a mensagem no horário de atendimento."]
+]}
+];
+
+var API="https://dvsugygrdozpurtybemm.supabase.co/rest/v1/rpc/",APIKEY="sb_publishable_oFWkSuaqM_2g2j49Q-_AcA_ZszpBt4o",TOKEN="0O99Ujumw9fmOQykDd8dxKZ3";
+var LS="roteiro_albertino_v1",estado={},timer=null,pendente=false,enviando=false;
+var tela=document.getElementById("tela"),statusEl=document.getElementById("status");
+function lerLocal(){try{return JSON.parse(localStorage.getItem(LS))||{}}catch(e){return {}}}
+function gravarLocal(){try{localStorage.setItem(LS,JSON.stringify(estado))}catch(e){}}
+var hideT;function mostrar(t,c){clearTimeout(hideT);statusEl.style.display="";statusEl.textContent=t;statusEl.className="status "+(c||"");if(c==="ok"||t.indexOf("salvas sozinhas")>0)hideT=setTimeout(function(){statusEl.style.display="none"},3000)}
+function rpc(fn,body){
+  var ctl=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(ctl)ctl.abort()},12000);
+  return fetch(API+fn,{method:"POST",keepalive:true,headers:{"apikey":APIKEY,"Content-Type":"application/json"},body:JSON.stringify(body),signal:ctl?ctl.signal:undefined})
+    .then(function(r){clearTimeout(tm);if(!r.ok)throw new Error(r.status);return r.json()});
+}
+function resumo(){
+  var t="Roteiro da IA — respostas do Dr. Albertino\n\n";
+  S.forEach(function(s,i){
+    var e=estado[s.id]||{};
+    t+=(i+1)+". "+s.t+": "+(e.v==="ok"?"Está bom":e.v==="edit"?"Mudar: "+(e.txt||"(sem texto)"):"Sem resposta")+"\n";
+  });
+  t+="\nComentário geral: "+(estado.geral||"(nenhum)")+"\n";
+  return t;
+}
+function salvar(){estado._local=Date.now();estado._resumo=resumo();gravarLocal();pendente=true;mostrar("Salvando...","");clearTimeout(timer);timer=setTimeout(enviar,700)}
+function enviar(){
+  if(enviando){clearTimeout(timer);timer=setTimeout(enviar,500);return}
+  if(!pendente)return;
+  pendente=false;enviando=true;
+  rpc("salvar_aprovacao",{p_token:TOKEN,p_respostas:estado}).then(function(){
+    enviando=false;if(!pendente)mostrar("Salvo ✓","ok");
+  }).catch(function(){
+    enviando=false;pendente=true;
+    mostrar("Sem internet agora. Suas respostas ficam guardadas e são enviadas quando a conexão voltar.","erro");
+    clearTimeout(timer);timer=setTimeout(enviar,5000);
+  });
+}
+window.addEventListener("online",function(){if(pendente)enviar()});
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden"&&pendente){clearTimeout(timer);enviar()}});
+
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function chipTxt(e){return e&&e.v==="ok"?"Está bom":e&&e.v==="edit"?"Mudar":"Ver"}
+
+function menu(){
+  tela.innerHTML="";
+  var intro=el("div","intro");
+  intro.innerHTML="Doutor, aqui estão as conversas que a assistente vai ter com suas pacientes. Toque em cada situação, leia a conversa e diga se está bom ou o que quer mudar: a ordem das perguntas, o que ela fala, o que ela não deveria perguntar. <b>Tudo é salvo sozinho</b>, pode parar e continuar depois. As datas são só exemplo.";
+  tela.appendChild(intro);
+  var feitas=S.filter(function(s){return estado[s.id]&&estado[s.id].v}).length;
+  tela.appendChild(el("div","prog",feitas+" de "+S.length+" conversas revisadas"));
+  var g="";
+  S.forEach(function(s,i){
+    if(s.g!==g){g=s.g;tela.appendChild(el("div","grupo",g))}
+    var e=estado[s.id]||{};
+    var b=el("button","item"+(e.v?" "+e.v:""));
+    var tx=el("span");tx.appendChild(el("b",null,(i+1)+". "+s.t));tx.appendChild(el("small",null,s.d));
+    b.appendChild(tx);b.appendChild(el("span","chip",chipTxt(e)));
+    b.onclick=function(){location.hash=s.id};
+    tela.appendChild(b);
+  });
+  var f=el("div","final");
+  f.appendChild(el("p",null,"Quer mudar algo que vale para todas as conversas? Escreva aqui."));
+  var ta=el("textarea");ta.placeholder="Ex: quero que ela seja mais curta, ou que pergunte o plano logo no começo";ta.value=estado.geral||"";
+  ta.oninput=function(){estado.geral=ta.value;salvar()};
+  f.appendChild(ta);
+  var bt=el("button",null,"Concluir");var av=el("div","aviso",estado.concluido?"Revisão concluída. Se mudar algo, salva sozinho.":"");
+  bt.onclick=function(){estado.concluido=true;salvar();av.textContent="Obrigado, doutor! O Luciano já recebeu suas respostas."};
+  f.appendChild(bt);f.appendChild(av);tela.appendChild(f);
+}
+
+function conversa(idx){
+  var s=S[idx];tela.innerHTML="";
+  var topo=el("div","topo");var v=el("button","voltar","← Todas as conversas");v.onclick=function(){location.hash=""};
+  topo.appendChild(v);topo.appendChild(el("span","cont",(idx+1)+" de "+S.length));tela.appendChild(topo);
+  tela.appendChild(el("h2",null,s.t));tela.appendChild(el("p","sub",s.d));
+  var ch=el("div","chat");
+  s.c.forEach(function(m){
+    if(m[0]==="n"){ch.appendChild(el("div","n",m[1]));return}
+    var b=el("div","b "+m[0]);b.appendChild(el("span","q",m[0]==="a"?"Assistente":"Paciente"));b.appendChild(document.createTextNode(m[1]));ch.appendChild(b);
+  });
+  tela.appendChild(ch);
+  var fb=el("div","fb");fb.appendChild(el("p",null,"Essa conversa está como o senhor quer?"));
+  var bs=el("div","btns");var ok=el("button","bok","✓ Está bom");var ed=el("button","bed","✎ Quero mudar");
+  bs.appendChild(ok);bs.appendChild(ed);fb.appendChild(bs);
+  var ta=el("textarea","hide");ta.placeholder="O que muda? Ex: primeiro perguntar o plano, depois o tipo de consulta";
+  fb.appendChild(ta);tela.appendChild(fb);
+  var e=estado[s.id]||{};ta.value=e.txt||"";
+  function pintar(){var x=estado[s.id]||{};ok.classList.toggle("on",x.v==="ok");ed.classList.toggle("on",x.v==="edit");ta.classList.toggle("hide",x.v!=="edit")}
+  ok.onclick=function(){estado[s.id]={v:"ok",txt:ta.value};salvar();pintar()};
+  ed.onclick=function(){estado[s.id]={v:"edit",txt:ta.value};salvar();pintar();ta.focus()};
+  ta.oninput=function(){(estado[s.id]=estado[s.id]||{v:"edit"}).txt=ta.value;salvar()};
+  pintar();
+  var nav=el("div","nav");
+  if(idx>0){var a=el("button","sec","← Anterior");a.onclick=function(){location.hash=S[idx-1].id};nav.appendChild(a)}
+  var p=el("button",null,idx<S.length-1?"Próxima →":"Concluir revisão");
+  p.onclick=function(){location.hash=idx<S.length-1?S[idx+1].id:""};nav.appendChild(p);
+  tela.appendChild(nav);
+}
+
+function rota(){
+  var id=location.hash.slice(1),idx=-1;
+  S.forEach(function(s,i){if(s.id===id)idx=i});
+  if(idx<0)menu();else conversa(idx);
+  window.scrollTo(0,0);
+}
+function carregar(){
+  var local=lerLocal();
+  return rpc("ler_aprovacao",{p_token:TOKEN}).then(function(srv){
+    srv=srv||{};
+    if((local._local||0)>(srv._local||0)){estado=local;pendente=true}else{estado=srv}
+  }).catch(function(){estado=local;if(local._local)pendente=true});
+}
+mostrar("Carregando...","");
+carregar().then(function(){
+  window.addEventListener("hashchange",rota);rota();
+  if(pendente)enviar();else mostrar(estado._local?"Salvo ✓":"Suas respostas são salvas sozinhas",estado._local?"ok":"");
+});
+</script>
+</body>
+</html>
