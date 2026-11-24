@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Assistente do Dr. Albertino</title>
+<title>Assistente do Prof. Dr. Albertino</title>
 <style>
 :root{--navy:#0A2F59;--azul:#14B4F2;--azulm:#0B97D5;--cinza:#5A6B80;--fundo:#F4F8FB;--ok:#1E9E62;--ed:#C27C0E;--chat:#E6EEF5;--pac:#D7F0FC}
 *{box-sizing:border-box}
@@ -61,7 +61,7 @@ textarea{width:100%;font:inherit;font-size:15px;border:1.5px solid #c9d6e3;borde
 <body>
 <header><div class="wrap">
   <div class="marca">Atende Certo IA</div>
-  <h1>Assistente do Dr. Albertino</h1>
+  <h1>Assistente do Prof. Dr. Albertino</h1>
   <p>Como ela conversa com suas pacientes no WhatsApp</p>
 </div></header>
 <main class="wrap" id="tela"></main>
@@ -71,13 +71,11 @@ textarea{width:100%;font:inherit;font-size:15px;border:1.5px solid #c9d6e3;borde
 var S=[
 {id:"plano",g:"Marcar consulta",t:"Consulta pelo plano",d:"Paciente de plano marcando uma consulta de ginecologia de rotina.",c:[
 ["p","Oi, boa tarde"],
-["a","Olá! Aqui é a assistente do consultório do Dr. Albertino Bastos 😊 Como posso te ajudar?"],
+["a","Olá! Aqui é a assistente do consultório do Prof. Dr. Albertino Bastos 😊 Como posso te ajudar?"],
 ["p","Quero marcar uma consulta"],
-["n","Ela já disse que é consulta, então a assistente não pergunta de novo."],
-["a","É de ginecologia ou de pré-natal?\n1. Ginecologia\n2. Pré-natal"],
+["a","Qual atendimento você precisa?\n1. Consulta de ginecologia\n2. Pré-natal\n3. Retorno\n4. Urgência"],
+["n","Antes eram 3 perguntas para saber o tipo de atendimento. Agora é uma só."],
 ["p","1"],
-["a","É uma consulta de rotina ou de urgência?\n1. Rotina\n2. Urgência"],
-["p","Rotina"],
 ["a","É o seu check-up anual?"],
 ["p","Sim"],
 ["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
@@ -89,20 +87,19 @@ var S=[
 ["p","Ana Souza"],
 ["a","Tenho estes turnos disponíveis. Qual fica melhor pra você?\n1. Segunda, 09/11, tarde\n2. Terça, 10/11, manhã\n3. Quarta, 11/11, tarde"],
 ["p","2"],
-["a","Agendado para terça-feira, 10/11, turno da manhã! O Dr. Albertino vai te receber com todo cuidado. O atendimento é por ordem de chegada, a partir das 8h, com média de 15 minutos por paciente. Endereço: Hospital Porto Dias, Travessa Mauriti, 3050, Bloco B, térreo, consultório 5. Traga um documento com foto."]
+["a","Agendado para terça-feira, 10/11, turno da manhã! O Prof. Dr. Albertino vai te receber com todo cuidado. O atendimento é por ordem de chegada, a partir das 8h, com média de 15 minutos por paciente. Endereço: Hospital Porto Dias, Travessa Mauriti, 3050, Bloco B, térreo, consultório 5. Traga um documento com foto."]
 ]},
 {id:"plano-part",g:"Marcar consulta",t:"Plano, quando o particular tem data antes",d:"Os turnos do plano mais próximos estão cheios, e o particular tem vaga antes.",c:[
 ["n","Começa igual à consulta pelo plano. Muda só a lista de turnos."],
 ["a","Tenho estes turnos disponíveis. Qual fica melhor pra você?\n1. Quinta, 12/11, manhã\n2. Quinta, 12/11, tarde\n3. Segunda, 16/11, tarde\n4. Segunda, 09/11, manhã (particular)"],
 ["n","A data do particular aparece só como última opção, sem comentário. A paciente nunca ouve que o plano demora mais."],
 ["p","1"],
-["a","Agendado para quinta-feira, 12/11, turno da manhã! O Dr. Albertino vai te receber com todo cuidado. (segue com endereço e documento)"],
+["a","Agendado para quinta-feira, 12/11, turno da manhã! O Prof. Dr. Albertino vai te receber com todo cuidado. (segue com endereço e documento)"],
 ["n","Se ela escolhe o plano, a assistente não oferece o particular de novo na mesma conversa."]
 ]},
 {id:"particular",g:"Marcar consulta",t:"Consulta particular",d:"Paciente que já chega pedindo particular.",c:[
 ["p","Quero marcar uma consulta particular de ginecologia"],
-["a","É uma consulta de rotina ou de urgência?\n1. Rotina\n2. Urgência"],
-["p","Rotina"],
+["n","Ela já disse o tipo e que é particular, então a assistente pula essas perguntas."],
 ["a","É o seu check-up anual?"],
 ["p","Não"],
 ["a","A consulta particular é R$ 400,00, com pagamento por Pix ou em espécie."],
@@ -115,8 +112,7 @@ var S=[
 ]},
 {id:"prenatal",g:"Marcar consulta",t:"Pré-natal",d:"Gestante pelo plano que já consultou há menos de 31 dias.",c:[
 ["p","Oi, estou grávida e quero marcar o pré-natal"],
-["a","Sua gestação foi classificada como de alto risco?"],
-["p","Não"],
+["n","A assistente não pergunta se a gestação é de alto risco."],
 ["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
 ["p","Plano"],
 ["a","Qual é o seu plano?\n1. Unimed\n2. GEAP Saúde\n3. TRT8 - PAS\n4. CASSI\n5. Amil\n6. Saúde Petrobras\n7. Porto Dias Saúde\n8. Bradesco Saúde\n9. Medservice\n10. Outro"],
@@ -157,7 +153,7 @@ var S=[
 {id:"fora",g:"Situações especiais",t:"Plano que o senhor não atende",d:"A paciente tem um plano fora da sua lista.",c:[
 ["a","Vai ser pelo plano ou particular?\n1. Plano\n2. Particular"],
 ["p","Plano, SulAmérica"],
-["a","O Dr. Albertino atende pelos planos Unimed, GEAP Saúde, TRT8 - PAS, CASSI, Amil, Saúde Petrobras, Porto Dias Saúde, Bradesco Saúde e Medservice. Com o seu plano, o atendimento fica como particular, por R$ 400,00. Quer ver os turnos disponíveis?"],
+["a","O Prof. Dr. Albertino atende pelos planos Unimed, GEAP Saúde, TRT8 - PAS, CASSI, Amil, Saúde Petrobras, Porto Dias Saúde, Bradesco Saúde e Medservice. Com o seu plano, o atendimento fica como particular, por R$ 400,00. Quer ver os turnos disponíveis?"],
 ["p","Quero"],
 ["n","Segue como consulta particular."]
 ]},
@@ -191,7 +187,7 @@ var S=[
 ["n","O lembrete é feito uma vez só, com gentileza."]
 ]},
 {id:"confirma",g:"Depois de marcar",t:"Confirmação de presença",d:"Mensagem automática às 8h do dia seguinte ao agendamento.",c:[
-["a","Bom dia! Passando pra lembrar da sua consulta com o Dr. Albertino Bastos. Você confirma sua presença?\n1. Confirmo\n2. Preciso remarcar"],
+["a","Bom dia! Passando pra lembrar da sua consulta com o Prof. Dr. Albertino Bastos. Você confirma sua presença?\n1. Confirmo\n2. Preciso remarcar"],
 ["n","Junto vai uma imagem de confirmação. Se a consulta for no mesmo dia ou no dia seguinte ao agendamento, essa mensagem não é enviada."],
 ["p","1"],
 ["a","Presença confirmada! Até lá."],
@@ -211,10 +207,20 @@ var S=[
 ["a","Unimed, GEAP Saúde, TRT8 - PAS, CASSI, Amil, Saúde Petrobras, Porto Dias Saúde, Bradesco Saúde e Medservice. A autorização é feita pela recepção, na chegada. Se o plano não autorizar, você pode fazer a consulta particular."],
 ["p","Quanto custa?"],
 ["a","Consulta de ginecologia: R$ 400,00. Consulta com coleta de preventivo: R$ 500,00. Consulta de pré-natal: R$ 400,00. Pré-natal com cardiotocografia: R$ 500,00. Só a cardiotocografia: R$ 250,00. Coleta do preventivo durante a consulta pelo plano: R$ 150,00. Pagamento por Pix ou em espécie."],
-["p","Quanto custa para colocar DIU?"],
-["a","O valor de procedimentos é passado pelo doutor durante a consulta. Quer que eu agende?"],
+["n","Ela informa só os valores das consultas. Procedimentos e cirurgias estão na próxima conversa."]
+]},
+{id:"proced",g:"Dúvidas e recepção",t:"Procedimentos, cirurgias e orçamentos",d:"Perguntas que são tratadas pessoalmente na consulta.",c:[
+["p","O doutor coloca DIU? Faz pelo plano?"],
+["a","Esse assunto é tratado pessoalmente na consulta, quando o Prof. Dr. Albertino avalia se há indicação pra você. Quer que eu agende?"],
+["p","Quanto fica uma cirurgia de mioma?"],
+["a","Valores de procedimentos são tratados pessoalmente na consulta, depois que o Prof. Dr. Albertino avalia se há indicação. Quer que eu agende?"],
+["n","A assistente nunca diz se o doutor faz ou não um procedimento, nem passa orçamento."]
+]},
+{id:"remedio",g:"Dúvidas e recepção",t:"Remédios, sintomas e exames",d:"Pedidos de ajuda que precisam de avaliação.",c:[
+["p","Posso tomar ibuprofeno pra cólica?"],
+["a","Isso precisa ser avaliado pelo Prof. Dr. Albertino em consulta. Se estiver com sangramento forte ou dor intensa, procure o pronto-socorro. Quer que eu agende uma consulta?"],
 ["p","Meu exame deu alterado, é grave?"],
-["a","Isso precisa ser avaliado pelo doutor em consulta. Quer que eu agende?"],
+["a","Isso precisa ser avaliado pelo Prof. Dr. Albertino em consulta. Quer que eu agende?"],
 ["n","A assistente nunca dá orientação médica, nunca comenta resultado de exame e nunca fala de remédio."]
 ]},
 {id:"lidia",g:"Dúvidas e recepção",t:"Quando passa para a Lídia",d:"Casos em que a conversa vai para a recepção.",c:[
@@ -240,7 +246,7 @@ function rpc(fn,body){
     .then(function(r){clearTimeout(tm);if(!r.ok)throw new Error(r.status);return r.json()});
 }
 function resumo(){
-  var t="Roteiro da IA — respostas do Dr. Albertino\n\n";
+  var t="Roteiro da IA — respostas do Prof. Dr. Albertino\n\n";
   S.forEach(function(s,i){
     var e=estado[s.id]||{};
     t+=(i+1)+". "+s.t+": "+(e.v==="ok"?"Está bom":e.v==="edit"?"Mudar: "+(e.txt||"(sem texto)"):"Sem resposta")+"\n";
